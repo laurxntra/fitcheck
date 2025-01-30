@@ -18,7 +18,28 @@ Goals for next week:
 
 
 
-PROGRESS & PLANS:
+INDIVIDUAL PROGRESS & TEAM PLANS:
 --------------------------------------------------------------------
-All:
-- Identify featuers/structure of app
+Agenda for next Thurs meeting:
+- Review page design
+- Confirm workflow 
+- Get help setting up repo for backend implementation
+
+
+Irfan:
+=============
+Progress & Issues:
+- Watched videos/read articles about Fluuter & Dart implementation, compilong to Swift to release on App Store too
+- Completed Figma tutorials
+- Specified complete reward system, (heart vs stars vs 'best dressed' awards)
+Goals for the Weel:
+- Aiming to learn Dart/Flutter basics by end of 1st week Feb
+- Help create mockups of home, explore. leaderboard, & profile page in Figma (with team) by end of week
+- Polish/digitize handrawn page designs to use for Figma mockups
+- Design logo protoypes/pick color pallete by mid week to incorporate into Figma
+- Create risks to add to living document
+Goals for Next Week:
+- Refamilarize with SQL (or databases in general if Firebase NoSQL query is chosen) throughout week
+- Research best test automation infrastructure (JUnit, Mocha...)
+- Start building backend! (with teams)
+
