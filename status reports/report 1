@@ -91,7 +91,12 @@ Goals for the Week:
 - Look into firebase vs azure
 - Finalize features anticipated for beta release
 
-Goals for Next Week:
-- Work on the Architecture and Design assignment. 
-- Set up account for database 
-- design data structure to hold account data
+Lauren:
+=============
+Progress & Issues:
+- Still working on figma and dicussing what to keep vs. what to remove
+
+Goals for the Week:
+- Finish figma sketches
+- Finalize main features of app we're going to develop for our first beta
+- Get familiarized with Flutter/Dart
