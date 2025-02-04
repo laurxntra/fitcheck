@@ -6,9 +6,17 @@ Goals for the week:
 - Complete architecture and design assignment
 
 Progress and issues:
--
+Progress:
+- Set up flutter/dart
+- Watching informative videos on flutter/dart for our project
+
+Issue: 
+  - Backend database we're using and how we're connecting it to flutter
 
 Goals for next week:
+- Start environment for our app, ensure all pages are able to scroll through
+- Setting up repository files for our project
+- Ensure database is accessible for all team members
 - 
 
 
