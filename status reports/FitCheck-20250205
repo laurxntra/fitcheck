@@ -45,3 +45,20 @@ Goals for the Week:
 Goals for Next Week:
 - Create basic validation for input fields (username validation and password length)
 - Finish log in screen -> username and password input fields are functional (with dummy test username & password)
+
+Leanna: 
+============= 
+Progress & Issues: 
+- Research potential backend frameworks and databases that integrate well with 
+  our existing tools (Flutter and Dart)
+- Research color theory and brainstorming app icon logo and general logo
+- Starting to set up coding environment and getting familiar with dary
+
+Goals for the Week: 
+- Set up the coding environment and technologies on my personal device.
+- Understanding the technologies we are utilizing to build this app
+- Begin creating scrollable app pages
+
+Goals for Next Week: 
+- Implement basic input validation and create a fully functional login screen with username and password fields,
+  using dummy test credentials.
