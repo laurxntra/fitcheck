@@ -77,3 +77,18 @@ Goals for the Week:
 
 Goals for Next Week: 
 - Setup at least one function for back end
+
+Yasmine:
+=============
+Progress & Issues:
+- Wrote the Software Design section of the Architecture and Design section of our assignment. 
+- Researched Dart and Flutter, finalizing app features with the team.
+- Successfully set up Xcode on my laptop.
+
+Goals for the Week:
+- Create a rough draft of the login page on Xcode.
+- Explore AWS services and plan how to integrate them into the project.
+
+Goals for Next Week:
+- Collaborate with the team to complete the Testing and Continuous Integration assignment.
+- Implement a login page in Xcode and connect it to Firebase for authentication.
