@@ -1,3 +1,8 @@
+NOTES FOR PM:
+--------------------------------------------------------------------
+- How do we connect our backend database to flutter?
+- How are we connecting the database back to UI?
+
 PROJECT STATUS:
 --------------------------------------------------------------------
 Goals for the week:
@@ -6,15 +11,25 @@ Goals for the week:
 - Determine needed packages/abstractions/interfaces
 - Pick a coding guideline for Flutter/Dart by midweek/ASAP
 - Identify/complete risks section of assignment by due date
+- Finalize packages/abstractions/interfaces needed
+- Complete architecture and design assignment
+
 Progress and issues:
 - Requirements laid out
 - Members assigned high level roles
-- Use cases determined
+- Set up flutter/dart
+- Watching informative videos on flutter/dart for our project
 - App architecture loosely designed
+- Backend determined
+- Backend database we're using and how we're connecting it to flutter is an unresolved issue
+
+
 Goals for next week:
 - Start building backend with viable working infrastructure by midweek
 - Start testing back end by end of week
+- Setting up repository files for our project
 - Identify all app structure over weekend
+- Ensure database is accessible for all team members
 
 
 
@@ -25,7 +40,6 @@ Agenda for next Thurs meeting:
 - Confirm workflow 
 - Get help setting up repo for backend implementation
 
-
 Irfan:
 =============
 Progress & Issues:
@@ -34,12 +48,12 @@ Progress & Issues:
 - Specified complete reward system, (heart vs stars vs 'best dressed' awards)
 - Created scaling/accessibility guidelines
 - Created use case for awarding
-Goals for the Weel:
+- Researched software and corresponding guidelines/requirements
+Goals for the Week:
 - Aiming to learn Dart/Flutter basics by end of 1st week Feb
 - Help create mockups of home, explore. leaderboard, & profile page in Figma (with team) by end of week
 - Polish/digitize handrawn page designs to use for Figma mockups
 - Design logo protoypes/pick color pallete by mid week to incorporate into Figma
-- Create risks to add to living document
 Goals for Next Week:
 - Refamilarize with SQL (or databases in general if Firebase NoSQL query is chosen) throughout week
 - Research best test automation infrastructure (JUnit, Mocha...)
@@ -51,12 +65,10 @@ Progress & Issues:
 - Wrote the product description and dertermined the 8 main features and the priority of them with Chaafen. 
 - Created use case for posting daily fit!
 - Researched different ways to store user information like logging in and storing photos. 
-
 Goals for the Week:
 - Learn more about Dart and Flutter. 
 - Work on the figma and design flow of the app. 
 - Finalize main features of the app. 
-
 Goals for Next Week:
 - Collaborate and finish the Architecture and design assignment. 
 - Create a rough draft of the login/create an account page. 
@@ -68,12 +80,10 @@ Progress & Issues:
 - Finished my use case
 - Did some surveying with friends and students about what they think of our idea and features they would want
 - Helped with creating the major risk and the mitigation plan on our doc
-
 Goals for the Week:
 - Figure out design ideas for the app
 - Get familiar with what languages and frameworks we want to work with
 - Start making Figma sketches
-
 Goals for Next Week:
 - Finish final figma sketches
 - Start organizing the app development features and who is going to work on what
@@ -94,11 +104,29 @@ Goals for the Week:
 Lauren:
 =============
 Progress & Issues:
-- Created main functions of figma
-- need to discuss with group members of what needs to be cut out of figma and what can we add
-- 
-
+- Created basic parts of Figma, needing consulting from group members of what needs to be added, deleted, or fixed
+- Completed Software and architecture section of Architecture and design assignment
 Goals for the Week:
-- Finish figma sketches
-- Finalize main features of app we're going to develop for our first beta
-- Get familiarized with Flutter/Dart
+- Complete and finalize rough draft of Figma design
+- Complete Architecture and design assignment
+- Begin installing necessary tools for set up
+- Begin creating the first components (login screen)
+Goals for Next Week:
+- Create basic validation for input fields (username validation and password length)
+- Finish log in screen -> username and password input fields are functional (with dummy test username & password)
+
+Leanna: 
+============= 
+Progress & Issues: 
+- Research potential backend frameworks and databases that integrate well with 
+  our existing tools (Flutter and Dart)
+- Research color theory and brainstorming app icon logo and general logo
+- Starting to set up coding environment and getting familiar with dary
+Goals for the Week: 
+- Set up the coding environment and technologies on my personal device.
+- Understanding the technologies we are utilizing to build this app
+- Begin creating scrollable app pages
+Goals for Next Week: 
+- Implement basic input validation and create a fully functional login screen with username and password fields,
+  using dummy test credentials.
+
