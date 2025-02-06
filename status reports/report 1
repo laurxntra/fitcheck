@@ -62,16 +62,15 @@ Goals for Next Week:
 Yasmine:
 =============
 Progress & Issues:
-- Wrote the product description and dertermined the 8 main features and the priority of them with Chaafen. 
-- Created use case for posting daily fit!
-- Researched different ways to store user information like logging in and storing photos. 
+- Wrote the Software Design section of the Architecture and Design section of our assignment. 
+- Researched Dart and Flutter, finalizing app features with the team.
+- Successfully set up Xcode on my laptop.
 Goals for the Week:
-- Learn more about Dart and Flutter. 
-- Work on the figma and design flow of the app. 
-- Finalize main features of the app. 
+- Create a rough draft of the login page on Xcode.
+- Explore AWS services and plan how to integrate them into the project.
 Goals for Next Week:
-- Collaborate and finish the Architecture and design assignment. 
-- Create a rough draft of the login/create an account page. 
+- Collaborate with the team to complete the Testing and Continuous Integration assignment.
+- Implement a login page in Xcode and connect it to Firebase for authentication.
 
 Aleksey:
 =============
