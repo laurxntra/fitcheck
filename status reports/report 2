@@ -1,0 +1,97 @@
+NOTES FOR PM:
+--------------------------------------------------------------------
+- How do we begin setting up database?
+- Where to find Codemagic student free pricing?
+
+PROJECT STATUS:
+--------------------------------------------------------------------
+Goals for the week:
+- Start building backend with viable working infrastructure by midweek
+- Start testing back end by end of week
+- Setting up repository files for our project
+- Identify all app structure over weekend
+- Ensure database is accessible for all team members
+
+Progress and issues:
+- Installed Flutter, Dart, Android Studio
+- Cloned repo and set up in GitHub
+- Identified CD/CI service as Codemagic and linked to GitHub repo
+- Began writing tests
+- Codemagic CI service free pricing not found?
+- How to set up database?
+
+Goals for next week:
+- Have working main pages with ability to navigate in-app by end of week
+- Connect and set up AWS backend for databases by beggining of week
+- Compelete test writing for major & basic features by begginng of week
+- Complete the Firebase Authentication for login/user setup by end of week
+- Viable profile system integrated by end of weekend
+
+
+INDIVIDUAL PROGRESS & TEAM PLANS:
+--------------------------------------------------------------------
+Agenda for next Thurs meeting:
+- Review architecture
+- Ensure everyone is ready to start coding
+- Get help setting up databases/AWS!
+
+Irfan:
+=============
+Progress & Issues:
+- Learned Dart through online tutorials
+- Installed Dart, Flutter, Android Studio, and resolved outdated dependencies in rep
+- Wrote status report for the week
+- Created main feature list/outline for coding
+- Researched and presented CI service (Codemagic)
+- Completed CI service justification on living doc
+Goals for the Week:
+- Begin helping with the backend creation of the main pages
+- Utilize Flutter widgets to start designing main page/login page
+- Set up AWS database and link to repo
+- Help team members set up personal branches/install necessary tools
+Goals for Next Week:
+- Be done with beta release coding (pages, navigation, user profiles)
+- Have a working image upload system with AWS storage
+- Aid in fullstack capacity as needed
+- Refine UI if there is time (backend comes first!)
+
+Yasmine:
+=============
+ 
+Goals for the Week:
+ 
+Goals for Next Week:
+
+
+Aleksey:
+=============
+Progress & Issues:
+
+Goals for the Week:
+
+Goals for Next Week:
+
+
+Chaafen:
+=============
+Progress & Issues:
+
+Goals for the Week:
+
+Goals for Next Week:
+
+Lauren:
+=============
+Progress & Issues:
+
+Goals for the Week:
+
+Goals for Next Week:
+
+Leanna: 
+============= 
+Progress & Issues: 
+
+Goals for the Week: 
+
+Goals for Next Week: 
