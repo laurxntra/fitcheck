@@ -100,7 +100,16 @@ Goals for Next Week:
 Leanna: 
 ============= 
 Progress & Issues: 
+- Learned more about testing our Flutter application using the provided Flutter testing framework, 
+which includes widget, unit, and integration testing, and documented it in the living doc.
+- Completed the setup for Dart, Flutter, and Android Studio.
+- Familiarized myself with Dart and Flutter since they are newly introduced to me.
 
 Goals for the Week: 
+- Gain a deeper understanding of writing robust tests for flutter applications.
+- Begin working on app functionality.
+- Set up the AWS database and other backend tools.
 
 Goals for Next Week: 
+- Complete all my tasks and be fully prepared for our beta release.
+- Write more robust tests for our application.
