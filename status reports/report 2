@@ -71,11 +71,20 @@ Goals for Next Week:
 Aleksey:
 =============
 Progress & Issues:
+-Completed the set up for Flutter/Dart and Firebase
+-We are able to run a simulator on my own phone and phone
+-Learned about magic code and other CI
+-Started working on the UI of the log in
 
 Goals for the Week:
+-Finish the UI for the pages, at least the basic UI to make the app look presentable
+-Log in page, take pictures of the user, give a user a promnt, create a leaderboard
+-Get more opinions on what direction the app should go towards.
 
 Goals for Next Week:
-
+- Complete all the needed features for the beta
+- Have a functioning app to show users and get their opinions on possible changes
+- Making sure everything in the backend is working as attended
 
 Chaafen:
 =============
