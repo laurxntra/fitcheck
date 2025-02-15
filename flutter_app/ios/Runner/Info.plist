@@ -45,5 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<String>To choose a picture for your daily fit </String>
+	<key>NSCameraUsageDescription</key>
+	<String>To take a picture of your daily fit</String>
+
 </dict>
 </plist>

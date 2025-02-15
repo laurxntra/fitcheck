@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages/phone_login.dart';  // ✅ Make sure this file exists
-import 'pages/otp_verification.dart'; // ✅ Make sure this file exists
-import 'pages/home_page.dart'; // ✅ Make sure this file exists
+import 'pages/phone_login.dart';  // ✅ Keep from main branch
+import 'pages/otp_verification.dart'; // ✅ Keep from main branch
+import 'pages/home_page.dart'; // ✅ Keep from main branch
 import 'pages/profile_page.dart';
 
 void main() {
@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FitCheck',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), // ✅ From yasmine-test
+        useMaterial3: true, // ✅ From yasmine-test
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => const PhoneLoginScreen(),
