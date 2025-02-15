@@ -5,7 +5,10 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Image.asset(
+          'assets/FitCheck.png', 
+           height: 100,
+        )
       ),
       body: ListView(
         children: [
@@ -23,30 +26,35 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 40,
-            // need profile picture image info here!
-          ),
-          SizedBox(width: 16,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Username',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-              ),
-              Text('Insert bio here'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+Widget _buildHeader() {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      children: [
+        CircleAvatar(
+          radius: 40,
+          // need image of profile here from data
+        ),
+        SizedBox(height: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'name display',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            Text(
+              '@username',
+              style: TextStyle(fontSize: 15),
+            ),
+            Text('Insert bio here'),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget _buildProfileInfo() {
     return Padding(
@@ -54,9 +62,11 @@ class ProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          // all these need to be connected to database
           _buildProfileInfoItem('Posts', '120'),
           _buildProfileInfoItem('Followers', '1.2M'),
           _buildProfileInfoItem('Following', '1'),
+          _buildProfileInfoItem('Awards', '1000'),
         ],
       ),
     );
