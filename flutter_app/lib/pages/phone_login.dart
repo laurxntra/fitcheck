@@ -15,7 +15,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
     String phoneNumber = phoneController.text.trim();
 
     if (phoneNumber.isNotEmpty && phoneNumber.length >= 10) {
-      Navigator.pushNamed(
+      Navigator.pushReplacementNamed(
         context,
         "/otp",
         arguments: {"phoneNumber": phoneNumber},
