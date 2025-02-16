@@ -33,7 +33,6 @@ Widget _buildHeader() {
       children: [
         CircleAvatar(
           radius: 40,
-          // need image of profile here from data
         ),
         SizedBox(height: 8),
         Column(

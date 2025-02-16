@@ -27,16 +27,14 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
-dependencies: 
+dependencies:
   flutter:
     sdk: flutter
 
-  # downloads image picker
-  image_picker:
+  camera: ^0.10.5+2
+  permission_handler: ^10.2.0
+  path_provider: ^2.1.2 # Used for storing files
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   intl_phone_field: ^3.2.0
   flutter_staggered_grid_view: ^0.4.0

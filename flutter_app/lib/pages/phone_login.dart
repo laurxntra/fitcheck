@@ -30,7 +30,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // BeReal-style dark theme
+      backgroundColor: Colors.black, 
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -39,11 +39,10 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
             children: [
               const SizedBox(height: 40),
 
-              // **Centered Logo**
               Center(
                 child: Image.asset(
-                  'assets/FitCheck.png', // Ensure it's in assets
-                  height: 200, // Increase size
+                  'assets/FitCheck.png', 
+                  height: 200, 
                   width: 200,
                   fit: BoxFit.contain,
                 ),
@@ -51,7 +50,6 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
 
               const SizedBox(height: 40),
 
-              // **Prompt**
               const Text(
                 "What's your phone number?",
                 textAlign: TextAlign.center,
@@ -71,7 +69,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[900], // Dark grey input field
+                  fillColor: Colors.grey[900], 
                   hintText: 'Enter your phone number',
                   hintStyle: TextStyle(color: Colors.grey[600]),
                   border: OutlineInputBorder(
@@ -79,7 +77,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                     borderSide: BorderSide.none,
                   ),
                 ),
-                initialCountryCode: 'US', // Default to United States
+                initialCountryCode: 'US', 
               ),
 
               const SizedBox(height: 10),
@@ -112,8 +110,8 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                 child: ElevatedButton(
                   onPressed: sendOtp,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[800], // Dark grey button
-                    foregroundColor: Colors.white, // White text
+                    backgroundColor: Colors.grey[800], 
+                    foregroundColor: Colors.white, 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
