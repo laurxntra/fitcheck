@@ -62,5 +62,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+	<!-- Necessary Permissions to take photos and access - added by Yasmine-->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<String>Neccessary so that user can post daily fit!</String>
+	<key>NSCameraUsageDescription</key>
+	<String>Necessary if user wants to take a photo of their daily fit!</String>
+	
 </dict>
 </plist>

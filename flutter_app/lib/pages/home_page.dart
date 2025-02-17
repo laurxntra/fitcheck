@@ -12,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   List<String> posts = []; 
   List<String> discoveryPosts = []; 
   bool isFriendsPage = true; 
+  bool initDiscoverPages = false;
 
   void addPost(String imagePath) {
     if (mounted) {
@@ -55,12 +56,30 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isFriendsPage = isFriendsSelected;
     });
+    if (isFriendsSelected) {
+      print("friends page selected");
+
+    }
+    else {
+      if (!initDiscoverPages) {
+        initDiscoveryPhotos();
+        initDiscoverPages = true;
+      }
+      print("my post page selected");
+      print(discoveryPosts.length);
+    }
+  }
+
+  void initDiscoveryPhotos() {
+    addPost('assets/outfit1.png');
+    addPost('assets/outfit2.png');
+    addPost('assets/outfit3.png');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:Color(0xFFEADCf0), // Colors.black,
 
       body: Column(
         children: [
@@ -121,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
-                      "Discovery",
+                      "My Post",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -170,6 +189,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(builder: (context) => ProfilePage()),
               );
+
             },
             child: const CircleAvatar(
               radius: 24,
@@ -203,19 +223,56 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPostCard(String imagePath) {
-    final file = File(imagePath);
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 3 / 4,
-            child: file.existsSync()
-                ? Image.file(file, fit: BoxFit.cover)
-                : Container(color: Colors.grey[800]),
+  // If the imagePath starts with 'assets/', treat it as an asset image.
+    bool isStateTrue = true;  // Set this to your actual state condition
+
+  return Column(
+    children: [
+      // Condition to check if extra content should be shown above the GridView
+      if (!isFriendsPage) 
+        Container(
+          padding: EdgeInsets.all(10),
+          
+          child: Text(
+            'fitPiece: pea coat',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-        ],
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          
+          child: Text(
+            'find inspiration',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+        ),
+      
+      // GridView displaying images
+      GridView.builder(
+        shrinkWrap: true,  // Use shrinkWrap to prevent the GridView from taking up all available space
+        physics: NeverScrollableScrollPhysics(),  // Prevent scrolling if wrapped in Column
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, // 3 images per row
+          crossAxisSpacing: 0, // Space between columns
+          mainAxisSpacing: 5, // Space between rows
+        ),
+        itemCount: discoveryPosts.length, // Length of the list of images
+        itemBuilder: (context, index) {
+          String imagePath = discoveryPosts[index];
+
+          return AspectRatio(
+            aspectRatio: 1 / 3, // Maintain aspect ratio
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain, // Adjust this as needed
+            ),
+          );
+        },
       ),
-    );
+    ],
+  );
+    
+    
   }
+
 }
