@@ -39,7 +39,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FitCheck',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xffEFE3F3)
+      ),
       initialRoute: '/',
       routes: {
         '/': (context) => const PhoneLoginScreen(),

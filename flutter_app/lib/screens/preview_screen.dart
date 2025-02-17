@@ -16,7 +16,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       body: Column(
         children: [
           Expanded(
@@ -28,15 +28,15 @@ class _PreviewScreenState extends State<PreviewScreen> {
             padding: const EdgeInsets.all(12.0),
             child: TextField(
               controller: _captionController,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Color(0xff872626)),
               decoration: InputDecoration(
                 hintText: "Write a caption...",
-                hintStyle: TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Color(0xff872626)),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 filled: true,
-                fillColor: Colors.grey[800],
+                fillColor: Colors.white,
               ),
             ),
           ),
@@ -44,7 +44,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
             padding: const EdgeInsets.only(bottom: 20.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: Color(0xff872626),
                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
               ),
               onPressed: () {
@@ -53,7 +53,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
               },
               child: const Text(
                 "Post",
-                style: TextStyle(color: Colors.black, fontSize: 18),
+                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
             ),
           ),

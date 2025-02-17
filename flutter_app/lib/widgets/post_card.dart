@@ -73,7 +73,7 @@ class _PostCardState extends State<PostCard> {
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
-        color: Colors.black,
+        //color: Colors.black,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,14 +93,14 @@ class _PostCardState extends State<PostCard> {
                   Text(
                     widget.username,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: Color(0xffd64117),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     getFormattedTime(),
                     style: const TextStyle(
-                      color: Colors.grey,
+                      color: Color(0xffb57977),
                       fontSize: 12,
                     ),
                   ),
@@ -109,7 +109,7 @@ class _PostCardState extends State<PostCard> {
               const Spacer(),
               const Icon(
                 Icons.more_vert,
-                color: Colors.white,
+                color: Color(0xffd64117),
               )
             ],
           ),
@@ -136,7 +136,7 @@ class _PostCardState extends State<PostCard> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 widget.caption,
-                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+                style: const TextStyle(color: Color(0xff872626), fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
           Row(
@@ -145,21 +145,21 @@ class _PostCardState extends State<PostCard> {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(isLiked ? Icons.favorite : Icons.favorite_border, color: Colors.white),
+                    icon: Icon(isLiked ? Icons.favorite : Icons.favorite_border, color: Color(0xffd64117)),
                     onPressed: toggleLike,
                   ),
                   Text(
                     "$likes",
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Color(0xffd64117)),
                   ),
                   const SizedBox(width: 10),
                   IconButton(
-                    icon: const Icon(Icons.comment, color: Colors.white),
+                    icon: const Icon(Icons.comment, color: Color(0xffd64117)),
                     onPressed: openComments,
                   ),
                 ],
               ),
-              const Icon(Icons.share, color: Colors.white),
+              //const Icon(Icons.share, color: Color(0xffd64117)),
             ],
           ),
         ],

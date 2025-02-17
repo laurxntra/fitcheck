@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
           'timestamp': DateTime.now(),
           'comments': <String>[], // Store comments
         };
-        if (isFriendsPage) {
+        if (!isFriendsPage) {
           posts.insert(0, newPost);
          } 
          //else {
@@ -94,6 +94,7 @@ void _toggleFeed(bool isFriendsSelected) {
 
  
  void initDiscoveryPhotos() {
+   discoveryPosts.clear();
    discoveryPosts.insert(0, 'assets/outfit1.png');
    discoveryPosts.insert(0, 'assets/outfit2.png');
    discoveryPosts.insert(0, 'assets/outfit3.png');
@@ -104,7 +105,7 @@ void _toggleFeed(bool isFriendsSelected) {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Color(0xFFEADCf0),
+      // backgroundColor:Color(0xFFEADCf0),
       body: Column(
         children: [
           _buildTopBar(),
@@ -120,7 +121,7 @@ void _toggleFeed(bool isFriendsSelected) {
                       final post = posts[index]; // Access the map from the list
                         return PostCard(
                         username: "User",
-                        profileImage: "https://via.placeholder.com/150",
+                        profileImage: "assets/outfit1.png",
                         imagePath: post['imagePath']!,
                         caption: post['caption']!,
                         timestamp: post['timestamp'], // Pass timestamp
@@ -160,7 +161,7 @@ void _toggleFeed(bool isFriendsSelected) {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                      color: isFriendsPage ? Colors.black : Colors.transparent,
+                      color: isFriendsPage ? Color(0xff872626) : Colors.transparent,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
@@ -168,7 +169,7 @@ void _toggleFeed(bool isFriendsSelected) {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: isFriendsPage ? Colors.white : Colors.black,
+                        color: isFriendsPage ? Colors.white : Color(0xff872626),
                       ),
                     ),
                   ),
@@ -178,7 +179,7 @@ void _toggleFeed(bool isFriendsSelected) {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                      color: !isFriendsPage ? Colors.black : Colors.transparent,
+                      color: !isFriendsPage ? Color(0xff872626) : Colors.transparent,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
@@ -186,7 +187,7 @@ void _toggleFeed(bool isFriendsSelected) {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: !isFriendsPage ? Colors.white : Colors.black,
+                        color: !isFriendsPage ? Colors.white : Color(0xff872626),
                       ),
                     ),
                   ),
@@ -194,11 +195,7 @@ void _toggleFeed(bool isFriendsSelected) {
               ],
             ),
           ),
-          FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => _showImageSourceActionSheet(context),
-            child: const Icon(Icons.camera_alt, color: Colors.black),
-          ),
+          
         ],
       ),
     );
@@ -211,7 +208,7 @@ void _toggleFeed(bool isFriendsSelected) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const Icon(Icons.group, color: Colors.white, size: 28),
+            icon: const Icon(Icons.group, color: Color(0xffd0addc), size: 28),
             onPressed: () {},
           ),
           Image.asset(
@@ -228,7 +225,7 @@ void _toggleFeed(bool isFriendsSelected) {
             },
             child: const CircleAvatar(
               radius: 24,
-              backgroundColor: Colors.grey,
+              backgroundColor: Color(0xffd0addc),
               child: Icon(Icons.person, color: Colors.white, size: 26),
             ),
           ),
@@ -244,12 +241,12 @@ void _toggleFeed(bool isFriendsSelected) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Icon(Icons.camera_alt, size: 50, color: Colors.grey),
+            Icon(Icons.camera_alt, size: 50, color: Color(0xffb57977)),
             SizedBox(height: 10),
             Text(
               "No posts yet.\nTake a picture!",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(color: Color(0xffb57977), fontSize: 18),
             ),
           ],
         ),
@@ -283,24 +280,49 @@ void _toggleFeed(bool isFriendsSelected) {
 
   Widget _buildPostWidget(String imagePath) {
  // If the imagePath starts with 'assets/', treat it as an asset image.
-    return Column(
+    return ListView(
       children: [
         // Condition to check if extra content should be shown above the GridView
-        if (!isFriendsPage)
+  
           Container(
             padding: EdgeInsets.all(10),
             
             child: Text(
               'fitPiece: pea coat',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Color(0xffd64117)),
+              textAlign: TextAlign.center,
             ),
           ),
+
+          Container( // only show this if daily post has not been made yet, otherwise pull today's post
+            height: 300,
+            width: 250,
+            child: Center(
+              child: Material(
+                child: InkWell(
+                  onTap: () => _showImageSourceActionSheet(context),
+                  child: SizedBox(
+                    height: 300, 
+                    width: 250, 
+                    child: Image.asset(
+                      'assets/cameraIcon.png', 
+                      fit: BoxFit.cover,
+                      width: 200, 
+                      height: 300, 
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
           Container(
             padding: EdgeInsets.all(10),
             
             child: Text(
               'find inspiration',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xff872626)),
+              textAlign: TextAlign.center,
             ),
           ),
         

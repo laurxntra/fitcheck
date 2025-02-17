@@ -46,7 +46,6 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
     return GestureDetector(
       onTap: _dismissKeyboard,
       child: Scaffold(
-        backgroundColor:Color(0xFFEADCf0),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -72,7 +71,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Color(0xff872626),
                   ),
                 ),
 
@@ -88,12 +87,13 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.grey[900],
+                    fillColor: Color(0xffd0addc),
                     hintText: 'Enter your phone number',
                     hintStyle: TextStyle(color: Colors.grey[600]),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
+                      
                     ),
                   ),
                   initialCountryCode: 'US',
@@ -129,7 +129,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                   child: ElevatedButton(
                     onPressed: isValid ? sendOtp : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isValid ? Colors.blue : Colors.grey[700],
+                      backgroundColor: isValid ? Color(0xffd64117) : Colors.grey[700],
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
