@@ -65,9 +65,9 @@
 
 	<!-- Necessary Permissions to take photos and access - added by Yasmine-->
 	<key>NSPhotoLibraryUsageDescription</key>
-	<String>Neccessary so that user can post daily fit!</String>
+	<string>Neccessary so that user can post daily fit!</string>
 	<key>NSCameraUsageDescription</key>
-	<String>Necessary if user wants to take a photo of their daily fit!</String>
+	<string>Necessary if user wants to take a photo of their daily fit!</string>
 	
 </dict>
 </plist>
