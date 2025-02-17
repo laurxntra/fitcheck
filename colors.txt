@@ -1,0 +1,5 @@
+logo orange : 0xffd64117
+dark orange: 0xff872626
+one color lighter: #ffb57977 
+new background purple: 0xffEFE3F3 
+     one shade darker: 0xffd0addc
