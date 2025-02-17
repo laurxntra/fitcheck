@@ -46,7 +46,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
     return GestureDetector(
       onTap: _dismissKeyboard,
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor:Color(0xFFEADCf0),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),

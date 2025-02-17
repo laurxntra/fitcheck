@@ -9,7 +9,7 @@ class OtpVerificationScreen extends StatelessWidget {
     String phoneNumber = args?["phoneNumber"] ?? "your number";
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:Color(0xFFEADCf0),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),

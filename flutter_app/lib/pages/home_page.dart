@@ -30,9 +30,10 @@ class _HomePageState extends State<HomePage> {
         };
         if (isFriendsPage) {
           posts.insert(0, newPost);
-        } else {
-          discoveryPosts.insert(0, imagePath);
-        }
+         } 
+         //else {
+        //   discoveryPosts.insert(0, imagePath);
+        // }
       });
     }
   }
@@ -93,9 +94,9 @@ void _toggleFeed(bool isFriendsSelected) {
 
  
  void initDiscoveryPhotos() {
-   addPost('assets/outfit1.png', '');
-   addPost('assets/outfit2.png', '');
-   addPost('assets/outfit3.png', '');
+   discoveryPosts.insert(0, 'assets/outfit1.png');
+   discoveryPosts.insert(0, 'assets/outfit2.png');
+   discoveryPosts.insert(0, 'assets/outfit3.png');
  }
 
 
@@ -114,20 +115,21 @@ void _toggleFeed(bool isFriendsSelected) {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
+                      
                       if (isFriendsPage) {
-     final post = posts[index]; // Access the map from the list
-                       return PostCard(
-                         username: post['username']!,
-                         profileImage: post['profileImage']!,
-                         imagePath: post['imagePath']!,
-                         caption: post['caption']!,
-                         timestamp: post['timestamp'],
-                         comments: List<String>.from(post['comments']),
-                         isNetworkImage: false,
-                         onCommentAdded: (comment) {
-                           setState(() {
-                             post['comments'].add(comment); // Add comment to the post
-                           });
+                      final post = posts[index]; // Access the map from the list
+                        return PostCard(
+                        username: "User",
+                        profileImage: "https://via.placeholder.com/150",
+                        imagePath: post['imagePath']!,
+                        caption: post['caption']!,
+                        timestamp: post['timestamp'], // Pass timestamp
+                        comments: post['comments'], // Pass comments
+                        isNetworkImage: false,
+                        onCommentAdded: (comment) {
+                          setState(() {
+                            post['comments'].add(comment);
+                          });
                          },
                        );
                      }
@@ -212,13 +214,10 @@ void _toggleFeed(bool isFriendsSelected) {
             icon: const Icon(Icons.group, color: Colors.white, size: 28),
             onPressed: () {},
           ),
-          const Text(
-            "FitCheck",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+          Image.asset(
+            'assets/FitCheck.png', // Replace with your actual image path
+            height: 75, // Adjust the size as needed
+            fit: BoxFit.contain,
           ),
           GestureDetector(
             onTap: () {
