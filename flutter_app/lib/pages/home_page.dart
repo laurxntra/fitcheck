@@ -3,8 +3,14 @@ import 'package:flutter_app/screens/preview_screen.dart';
 import 'package:flutter_app/widgets/post_card.dart';
 import '../screens/camera_screen.dart';
 import 'profile_page.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -159,8 +165,14 @@ class _HomePageState extends State<HomePage> {
           ),
           FloatingActionButton(
             backgroundColor: Colors.white,
-            onPressed: _openCamera,
-            child: const Icon(Icons.camera_alt, color: Colors.black),
+            onPressed: () => _showImageSourceActionSheet(context),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(Icons.camera_alt, color: Colors.black),
+                // Text('Y', style: TextStyle(color: Colors.black)),
+              ],
+            ),
           ),
         ],
       ),
@@ -221,5 +233,57 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _showImageSourceActionSheet(BuildContext context) {
+    Function(ImageSource) selectImageSource = (imageSource) {
+      // Add your logic to handle the selected image source
+    };
+
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (context) => CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              child: const Text('Camera'),
+              onPressed: () {
+                Navigator.pop(context);
+                selectImageSource(ImageSource.camera);
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: const Text('Gallery'),
+              onPressed: () {
+                Navigator.pop(context);
+                selectImageSource(ImageSource.gallery);
+              },
+            ),
+          ],
+        ),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => Wrap(children: [
+          ListTile(
+            leading: const Icon(Icons.camera_alt),
+            title: const Text('Camera'),
+            onTap: () {
+              Navigator.pop(context);
+              selectImageSource(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_album),
+            title: const Text('Gallery'),
+            onTap: () {
+              Navigator.pop(context);
+              selectImageSource(ImageSource.gallery);
+            },
+          ),
+        ]),
+      );
+    }
   }
 }
