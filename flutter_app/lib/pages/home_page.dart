@@ -3,17 +3,22 @@ import 'package:flutter_app/screens/preview_screen.dart';
 import 'package:flutter_app/widgets/post_card.dart';
 import '../screens/camera_screen.dart';
 import 'profile_page.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> posts = []; // Now stores timestamp & comments
-  List<String> discoveryPosts = [];
-  bool isFriendsPage = true; 
-  bool initDiscoverPages = false;
+  List<Map<String, dynamic>> discoveryPosts = [];
+  bool isFriendsPage = true;
 
   void addPost(String imagePath, String caption) {
     if (mounted) {
@@ -27,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         if (isFriendsPage) {
           posts.insert(0, newPost);
         } else {
-          discoveryPosts.insert(0, imagePath);
+          discoveryPosts.insert(0, newPost);
         }
       });
     }
@@ -69,31 +74,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isFriendsPage = isFriendsSelected;
     });
-    if (isFriendsSelected) {
-      print("friends page selected");
-
-    }
-    else {
-      if (!initDiscoverPages) {
-        initDiscoveryPhotos();
-        initDiscoverPages = true;
-      }
-      print("my post page selected");
-      print(discoveryPosts.length);
-    }
-  }
-
-  void initDiscoveryPhotos() {
-    addPost('assets/outfit1.png', '');
-    addPost('assets/outfit2.png', '');
-    addPost('assets/outfit3.png', '');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Color(0xFFEADCf0), // Colors.black,
-
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           _buildTopBar(),
@@ -104,27 +90,21 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
-                      
-                      if (isFriendsPage) {
-      final post = posts[index]; // Access the map from the list
-                        return PostCard(
-                          username: post['username']!,
-                          profileImage: post['profileImage']!,
-                          imagePath: post['imagePath']!,
-                          caption: post['caption']!,
-                          timestamp: post['timestamp'],
-                          comments: List<String>.from(post['comments']),
-                          isNetworkImage: false,
-                          onCommentAdded: (comment) {
-                            setState(() {
-                              post['comments'].add(comment); // Add comment to the post
-                            });
-                          },
-                        );
-                      }
-                      else { // show my posts
-                        return _buildPostCard(discoveryPosts[index]);
-                      }
+                      final post = isFriendsPage ? posts[index] : discoveryPosts[index];
+                      return PostCard(
+                        username: "User",
+                        profileImage: "https://via.placeholder.com/150",
+                        imagePath: post['imagePath']!,
+                        caption: post['caption']!,
+                        timestamp: post['timestamp'], // Pass timestamp
+                        comments: post['comments'], // Pass comments
+                        isNetworkImage: false,
+                        onCommentAdded: (comment) {
+                          setState(() {
+                            post['comments'].add(comment);
+                          });
+                        },
+                      );
                     },
                   ),
           ),
@@ -171,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
-                      "My Post",
+                      "Discovery",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -185,8 +165,14 @@ class _HomePageState extends State<HomePage> {
           ),
           FloatingActionButton(
             backgroundColor: Colors.white,
-            onPressed: _openCamera,
-            child: const Icon(Icons.camera_alt, color: Colors.black),
+            onPressed: () => _showImageSourceActionSheet(context),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(Icons.camera_alt, color: Colors.black),
+                // Text('Y', style: TextStyle(color: Colors.black)),
+              ],
+            ),
           ),
         ],
       ),
@@ -217,7 +203,6 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(builder: (context) => ProfilePage()),
               );
-
             },
             child: const CircleAvatar(
               radius: 24,
@@ -250,60 +235,55 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildPostCard(String imagePath) {
-  // If the imagePath starts with 'assets/', treat it as an asset image.
-    bool isStateTrue = true;  // Set this to your actual state condition
+  void _showImageSourceActionSheet(BuildContext context) {
+    Function(ImageSource) selectImageSource = (imageSource) {
+      // Add your logic to handle the selected image source
+    };
 
-  return Column(
-    children: [
-      // Condition to check if extra content should be shown above the GridView
-      if (!isFriendsPage) 
-        Container(
-          padding: EdgeInsets.all(10),
-          
-          child: Text(
-            'fitPiece: pea coat',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          
-          child: Text(
-            'find inspiration',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-        ),
-      
-      // GridView displaying images
-      GridView.builder(
-        shrinkWrap: true,  // Use shrinkWrap to prevent the GridView from taking up all available space
-        physics: NeverScrollableScrollPhysics(),  // Prevent scrolling if wrapped in Column
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // 3 images per row
-          crossAxisSpacing: 0, // Space between columns
-          mainAxisSpacing: 5, // Space between rows
-        ),
-        itemCount: discoveryPosts.length, // Length of the list of images
-        itemBuilder: (context, index) {
-          // Access the map for the post at this index
-          final post = discoveryPosts[index];
-          // Get the image path from the map
-          String imagePath = discoveryPosts[index];
-
-          return AspectRatio(
-            aspectRatio: 1 / 3, // Maintain aspect ratio
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.contain, // Adjust this as needed
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (context) => CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              child: const Text('Camera'),
+              onPressed: () {
+                Navigator.pop(context);
+                selectImageSource(ImageSource.camera);
+              },
             ),
-          );
-        },
-      ),
-    ],
-  );
-    
-    
+            CupertinoActionSheetAction(
+              child: const Text('Gallery'),
+              onPressed: () {
+                Navigator.pop(context);
+                selectImageSource(ImageSource.gallery);
+              },
+            ),
+          ],
+        ),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => Wrap(children: [
+          ListTile(
+            leading: const Icon(Icons.camera_alt),
+            title: const Text('Camera'),
+            onTap: () {
+              Navigator.pop(context);
+              selectImageSource(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_album),
+            title: const Text('Gallery'),
+            onTap: () {
+              Navigator.pop(context);
+              selectImageSource(ImageSource.gallery);
+            },
+          ),
+        ]),
+      );
+    }
   }
-
 }

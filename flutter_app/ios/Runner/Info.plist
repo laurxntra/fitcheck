@@ -68,6 +68,7 @@
 	<string>Neccessary so that user can post daily fit!</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Necessary if user wants to take a photo of their daily fit!</string>
+
 	
 </dict>
 </plist>
