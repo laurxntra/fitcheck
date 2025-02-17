@@ -1,18 +1,71 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/widgets/comment_section.dart';
+import 'package:intl/intl.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   final String username;
   final String profileImage;
-  final String mainImage;
-  final String timeAgo;
+  final String imagePath;
+  final String caption;
+  final bool isNetworkImage;
+  final DateTime timestamp;
+  final List<String> comments; // Stores comments
+  final Function(String) onCommentAdded; // Callback when a new comment is added
 
   const PostCard({
     Key? key,
     required this.username,
     required this.profileImage,
-    required this.mainImage,
-    required this.timeAgo,
+    required this.imagePath,
+    required this.caption,
+    required this.timestamp,
+    this.isNetworkImage = true,
+    required this.comments,
+    required this.onCommentAdded,
   }) : super(key: key);
+
+  @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  int likes = 0;
+  bool isLiked = false;
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+      likes += isLiked ? 1 : -1;
+    });
+  }
+
+  String getFormattedTime() {
+    final now = DateTime.now();
+    final difference = now.difference(widget.timestamp);
+
+    if (difference.inMinutes < 1) {
+      return "Just now";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} min ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours}h ago";
+    } else {
+      return DateFormat('MMM d, y').format(widget.timestamp);
+    }
+  }
+
+  void openComments() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return CommentSection(
+          comments: widget.comments,
+          onCommentAdded: widget.onCommentAdded,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +78,12 @@ class PostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(profileImage),
+                backgroundImage: widget.profileImage.isNotEmpty && widget.profileImage.startsWith('http')
+                    ? NetworkImage(widget.profileImage)
+                    : const AssetImage('assets/default_avatar.png') as ImageProvider,
                 radius: 20,
               ),
               const SizedBox(width: 10),
@@ -37,14 +91,14 @@ class PostCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    username,
+                    widget.username,
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    timeAgo,
+                    getFormattedTime(),
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
@@ -60,48 +114,49 @@ class PostCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          // Main Image Container
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  mainImage,
-                  width: double.infinity,
-                  height: 400,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              
-              Positioned(
-                top: 10,
-                left: 10,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: Image.network(
-                      profileImage, 
-                      fit: BoxFit.cover,
-                    ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: widget.isNetworkImage
+                ? Image.network(
+                    widget.imagePath,
+                    width: double.infinity,
+                    height: 400,
+                    fit: BoxFit.cover,
+                  )
+                : Image.file(
+                    File(widget.imagePath),
+                    width: double.infinity,
+                    height: 400,
+                    fit: BoxFit.cover,
                   ),
-                ),
-              ),
-            ],
           ),
           const SizedBox(height: 10),
+          if (widget.caption.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(
+                widget.caption,
+                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                children: const [
-                  Icon(Icons.favorite_border, color: Colors.white),
-                  SizedBox(width: 10),
-                  Icon(Icons.comment, color: Colors.white),
+                children: [
+                  IconButton(
+                    icon: Icon(isLiked ? Icons.favorite : Icons.favorite_border, color: Colors.white),
+                    onPressed: toggleLike,
+                  ),
+                  Text(
+                    "$likes",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(width: 10),
+                  IconButton(
+                    icon: const Icon(Icons.comment, color: Colors.white),
+                    onPressed: openComments,
+                  ),
                 ],
               ),
               const Icon(Icons.share, color: Colors.white),

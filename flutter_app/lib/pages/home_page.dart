@@ -1,7 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/preview_screen.dart';
+import 'package:flutter_app/widgets/post_card.dart';
 import '../screens/camera_screen.dart';
-import 'profile_page.dart'; 
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,13 +15,19 @@ class _HomePageState extends State<HomePage> {
   bool isFriendsPage = true; 
   bool initDiscoverPages = false;
 
-  void addPost(String imagePath) {
+  void addPost(String imagePath, String caption) {
     if (mounted) {
       setState(() {
+        final newPost = {
+          'imagePath': imagePath,
+          'caption': caption,
+          'timestamp': DateTime.now(), // Store current time
+          'comments': <String>[], // Store comments
+        };
         if (isFriendsPage) {
-          posts.insert(0, imagePath);
+          posts.insert(0, newPost);
         } else {
-          discoveryPosts.insert(0, imagePath);
+          discoveryPosts.insert(0, newPost);
         }
       });
     }
@@ -29,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _openCamera() async {
     print("Camera button pressed");
 
-    if (!mounted) return; 
+    if (!mounted) return;
 
     final capturedPath = await Navigator.push(
       context,
@@ -44,11 +51,17 @@ class _HomePageState extends State<HomePage> {
 
     print("Returned from CameraScreen: $capturedPath");
 
-    if (capturedPath != null && mounted) {
-      addPost(capturedPath);
-      print("Post added: $capturedPath");
-    } else {
-      print("No image returned from CameraScreen");
+    if (capturedPath != null) {
+      final postDetails = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PreviewScreen(imagePath: capturedPath),
+        ),
+      );
+
+      if (postDetails != null) {
+        addPost(postDetails['imagePath']!, postDetails['caption']!);
+      }
     }
   }
 
@@ -83,7 +96,7 @@ class _HomePageState extends State<HomePage> {
 
       body: Column(
         children: [
-          _buildTopBar(), 
+          _buildTopBar(),
           Expanded(
             child: (isFriendsPage ? posts : discoveryPosts).isEmpty
                 ? _buildEmptyFeed()
@@ -91,20 +104,32 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
-                      return _buildPostCard(isFriendsPage ? posts[index] : discoveryPosts[index]);
+                      final post = isFriendsPage ? posts[index] : discoveryPosts[index];
+                      return PostCard(
+                        username: "User",
+                        profileImage: "https://via.placeholder.com/150",
+                        imagePath: post['imagePath']!,
+                        caption: post['caption']!,
+                        timestamp: post['timestamp'], // Pass timestamp
+                        comments: post['comments'], // Pass comments
+                        isNetworkImage: false,
+                        onCommentAdded: (comment) {
+                          setState(() {
+                            post['comments'].add(comment);
+                          });
+                        },
+                      );
                     },
                   ),
           ),
         ],
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          
           Container(
-            margin: const EdgeInsets.only(bottom: 15), 
+            margin: const EdgeInsets.only(bottom: 15),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.9),
@@ -114,7 +139,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
-                  onTap: () => _toggleFeed(true), 
+                  onTap: () => _toggleFeed(true),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
@@ -132,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => _toggleFeed(false), 
+                  onTap: () => _toggleFeed(false),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
@@ -152,7 +177,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-
           FloatingActionButton(
             backgroundColor: Colors.white,
             onPressed: _openCamera,
@@ -171,9 +195,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           IconButton(
             icon: const Icon(Icons.group, color: Colors.white, size: 28),
-            onPressed: () {
-              
-            },
+            onPressed: () {},
           ),
           const Text(
             "FitCheck",
