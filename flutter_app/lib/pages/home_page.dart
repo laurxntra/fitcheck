@@ -10,8 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> posts = []; 
-  List<String> discoveryPosts = []; 
+  List<Map<String, dynamic>> posts = []; // Now stores timestamp & comments
+  List<String> discoveryPosts = [];
   bool isFriendsPage = true; 
   bool initDiscoverPages = false;
 
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         if (isFriendsPage) {
           posts.insert(0, newPost);
         } else {
-          discoveryPosts.insert(0, newPost);
+          discoveryPosts.insert(0, imagePath);
         }
       });
     }
@@ -84,9 +84,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initDiscoveryPhotos() {
-    addPost('assets/outfit1.png');
-    addPost('assets/outfit2.png');
-    addPost('assets/outfit3.png');
+    addPost('assets/outfit1.png', '');
+    addPost('assets/outfit2.png', '');
+    addPost('assets/outfit3.png', '');
   }
 
   @override
@@ -104,21 +104,27 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
-                      final post = isFriendsPage ? posts[index] : discoveryPosts[index];
-                      return PostCard(
-                        username: "User",
-                        profileImage: "https://via.placeholder.com/150",
-                        imagePath: post['imagePath']!,
-                        caption: post['caption']!,
-                        timestamp: post['timestamp'], // Pass timestamp
-                        comments: post['comments'], // Pass comments
-                        isNetworkImage: false,
-                        onCommentAdded: (comment) {
-                          setState(() {
-                            post['comments'].add(comment);
-                          });
-                        },
-                      );
+                      
+                      if (isFriendsPage) {
+      final post = posts[index]; // Access the map from the list
+                        return PostCard(
+                          username: post['username']!,
+                          profileImage: post['profileImage']!,
+                          imagePath: post['imagePath']!,
+                          caption: post['caption']!,
+                          timestamp: post['timestamp'],
+                          comments: List<String>.from(post['comments']),
+                          isNetworkImage: false,
+                          onCommentAdded: (comment) {
+                            setState(() {
+                              post['comments'].add(comment); // Add comment to the post
+                            });
+                          },
+                        );
+                      }
+                      else { // show my posts
+                        return _buildPostCard(discoveryPosts[index]);
+                      }
                     },
                   ),
           ),
@@ -280,6 +286,9 @@ class _HomePageState extends State<HomePage> {
         ),
         itemCount: discoveryPosts.length, // Length of the list of images
         itemBuilder: (context, index) {
+          // Access the map for the post at this index
+          final post = discoveryPosts[index];
+          // Get the image path from the map
           String imagePath = discoveryPosts[index];
 
           return AspectRatio(

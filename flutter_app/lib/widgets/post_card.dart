@@ -51,7 +51,7 @@ class _PostCardState extends State<PostCard> {
     } else if (difference.inHours < 24) {
       return "${difference.inHours}h ago";
     } else {
-      return DateFormat('MMM d, y').format(widget.timestamp);
+      return "dateformat not implemented"; // DateFormat('MMM d, y').format(widget.timestamp);
     }
   }
 
