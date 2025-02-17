@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'preview_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   final Function(String) onImageCaptured;
@@ -43,23 +42,16 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _capturePhoto() async {
-    if (!_controller!.value.isInitialized) return;
+  if (!_controller!.value.isInitialized) return;
 
-    final XFile photo = await _controller!.takePicture();
-    final imagePath = photo.path;
+  final XFile photo = await _controller!.takePicture();
+  final imagePath = photo.path;
 
-    final postedImage = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PreviewScreen(imagePath: imagePath),
-      ),
-    );
-
-    if (postedImage != null) {
-      widget.onImageCaptured(postedImage);
-      Navigator.pop(context);
-    }
+  // Return image path to the previous screen
+  if (mounted) {
+    Navigator.pop(context, imagePath);
   }
+}
 
   @override
   Widget build(BuildContext context) {

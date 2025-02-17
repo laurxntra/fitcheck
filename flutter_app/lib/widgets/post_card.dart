@@ -1,17 +1,20 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
   final String username;
   final String profileImage;
-  final String mainImage;
+  final String imagePath;
   final String timeAgo;
+  final bool isNetworkImage;
 
   const PostCard({
     Key? key,
     required this.username,
     required this.profileImage,
-    required this.mainImage,
+    required this.imagePath,
     required this.timeAgo,
+    this.isNetworkImage = true,
   }) : super(key: key);
 
   @override
@@ -25,7 +28,6 @@ class PostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
           Row(
             children: [
               CircleAvatar(
@@ -65,14 +67,20 @@ class PostCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  mainImage,
-                  width: double.infinity,
-                  height: 400,
-                  fit: BoxFit.cover,
-                ),
+                child: isNetworkImage
+                    ? Image.network(
+                        imagePath,
+                        width: double.infinity,
+                        height: 400,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        File(imagePath),
+                        width: double.infinity,
+                        height: 400,
+                        fit: BoxFit.cover,
+                      ),
               ),
-              
               Positioned(
                 top: 10,
                 left: 10,
@@ -85,7 +93,7 @@ class PostCard extends StatelessWidget {
                       border: Border.all(color: Colors.white, width: 2),
                     ),
                     child: Image.network(
-                      profileImage, 
+                      profileImage,
                       fit: BoxFit.cover,
                     ),
                   ),

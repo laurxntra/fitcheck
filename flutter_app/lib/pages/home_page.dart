@@ -1,7 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/preview_screen.dart';
+import 'package:flutter_app/widgets/post_card.dart';
 import '../screens/camera_screen.dart';
-import 'profile_page.dart'; 
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,30 +27,37 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _openCamera() async {
-    print("Camera button pressed");
+  print("Camera button pressed");
 
-    if (!mounted) return; 
+  if (!mounted) return;
 
-    final capturedPath = await Navigator.push(
+  final capturedPath = await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => CameraScreen(
+        onImageCaptured: (imagePath) {
+          Navigator.pop(context, imagePath); // Return imagePath when captured
+        },
+      ),
+    ),
+  );
+
+  print("Returned from CameraScreen: $capturedPath");
+
+  if (capturedPath != null) {
+    final postedImage = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => CameraScreen(
-          onImageCaptured: (imagePath) {
-            Navigator.pop(context, imagePath);
-          },
-        ),
+        builder: (context) => PreviewScreen(imagePath: capturedPath),
       ),
     );
 
-    print("Returned from CameraScreen: $capturedPath");
-
-    if (capturedPath != null && mounted) {
-      addPost(capturedPath);
-      print("Post added: $capturedPath");
-    } else {
-      print("No image returned from CameraScreen");
+    if (postedImage != null) {
+      addPost(postedImage);
     }
   }
+}
+
 
   void _toggleFeed(bool isFriendsSelected) {
     setState(() {
@@ -61,7 +69,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-
       body: Column(
         children: [
           _buildTopBar(), 
@@ -72,18 +79,22 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
-                      return _buildPostCard(isFriendsPage ? posts[index] : discoveryPosts[index]);
+                      return PostCard(
+                        username: "User",
+                        profileImage: "https://via.placeholder.com/150",
+                        imagePath: isFriendsPage ? posts[index] : discoveryPosts[index],
+                        timeAgo: "Just now",
+                        isNetworkImage: false,
+                      );
                     },
                   ),
           ),
         ],
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          
           Container(
             margin: const EdgeInsets.only(bottom: 15), 
             padding: const EdgeInsets.all(4),
@@ -133,7 +144,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-
           FloatingActionButton(
             backgroundColor: Colors.white,
             onPressed: _openCamera,
@@ -152,9 +162,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           IconButton(
             icon: const Icon(Icons.group, color: Colors.white, size: 28),
-            onPressed: () {
-              
-            },
+            onPressed: () {},
           ),
           const Text(
             "FitCheck",
@@ -198,23 +206,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildPostCard(String imagePath) {
-    final file = File(imagePath);
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 3 / 4,
-            child: file.existsSync()
-                ? Image.file(file, fit: BoxFit.cover)
-                : Container(color: Colors.grey[800]),
-          ),
-        ],
       ),
     );
   }
