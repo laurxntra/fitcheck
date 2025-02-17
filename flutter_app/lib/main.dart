@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:camera/camera.dart';
 import 'pages/home_page.dart';
+import 'pages/phone_login.dart';
+import 'pages/otp_verification.dart';
 
 // ignore: unused_element
 late List<CameraDescription> _cameras;
@@ -38,7 +40,12 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'FitCheck',
       theme: ThemeData.dark(),
-      home: HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const PhoneLoginScreen(),
+        '/otp': (context) => const OtpVerificationScreen(),
+        '/home': (context) => HomePage(),
+      },
     );
   }
 }

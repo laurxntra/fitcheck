@@ -10,14 +10,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, String>> posts = []; 
-  List<Map<String, String>> discoveryPosts = []; 
-  bool isFriendsPage = true; 
+  List<Map<String, dynamic>> posts = []; // Now stores timestamp & comments
+  List<Map<String, dynamic>> discoveryPosts = [];
+  bool isFriendsPage = true;
 
   void addPost(String imagePath, String caption) {
     if (mounted) {
       setState(() {
-        final newPost = {'imagePath': imagePath, 'caption': caption};
+        final newPost = {
+          'imagePath': imagePath,
+          'caption': caption,
+          'timestamp': DateTime.now(), // Store current time
+          'comments': <String>[], // Store comments
+        };
         if (isFriendsPage) {
           posts.insert(0, newPost);
         } else {
@@ -79,13 +84,20 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
+                      final post = isFriendsPage ? posts[index] : discoveryPosts[index];
                       return PostCard(
                         username: "User",
                         profileImage: "https://via.placeholder.com/150",
-                        imagePath: isFriendsPage ? posts[index]['imagePath']! : discoveryPosts[index]['imagePath']!,
-                        timeAgo: "Just now",
-                        caption: isFriendsPage ? posts[index]['caption']! : discoveryPosts[index]['caption']!,
+                        imagePath: post['imagePath']!,
+                        caption: post['caption']!,
+                        timestamp: post['timestamp'], // Pass timestamp
+                        comments: post['comments'], // Pass comments
                         isNetworkImage: false,
+                        onCommentAdded: (comment) {
+                          setState(() {
+                            post['comments'].add(comment);
+                          });
+                        },
                       );
                     },
                   ),
