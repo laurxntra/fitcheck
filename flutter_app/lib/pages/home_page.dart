@@ -15,8 +15,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> posts = []; // Stores timestamp & comments
-  List<Map<String, dynamic>> discoveryPosts = [];
+  List<String> discoveryPosts = [];
   bool isFriendsPage = true;
+  bool initDiscoverPages = false;
 
   void addPost(String imagePath, String caption) {
     if (mounted) {
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         if (isFriendsPage) {
           posts.insert(0, newPost);
         } else {
-          discoveryPosts.insert(0, newPost);
+          discoveryPosts.insert(0, imagePath);
         }
       });
     }
@@ -80,16 +81,29 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _toggleFeed(bool isFriendsSelected) {
-    setState(() {
-      isFriendsPage = isFriendsSelected;
-    });
-  }
+void _toggleFeed(bool isFriendsSelected) {
+   setState(() {
+     isFriendsPage = isFriendsSelected;
+   });
+    if (!initDiscoverPages) {
+      initDiscoveryPhotos();
+      initDiscoverPages = true;
+    }
+ }
+
+ 
+ void initDiscoveryPhotos() {
+   addPost('assets/outfit1.png', '');
+   addPost('assets/outfit2.png', '');
+   addPost('assets/outfit3.png', '');
+ }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:Color(0xFFEADCf0),
       body: Column(
         children: [
           _buildTopBar(),
@@ -100,26 +114,31 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     itemCount: isFriendsPage ? posts.length : discoveryPosts.length,
                     itemBuilder: (context, index) {
-                      final post = isFriendsPage ? posts[index] : discoveryPosts[index];
-                      return PostCard(
-                        username: "User",
-                        profileImage: "https://via.placeholder.com/150",
-                        imagePath: post['imagePath']!,
-                        caption: post['caption']!,
-                        timestamp: post['timestamp'],
-                        comments: post['comments'],
-                        isNetworkImage: false,
-                        onCommentAdded: (comment) {
-                          setState(() {
-                            post['comments'].add(comment);
-                          });
-                        },
-                      );
-                    },
-                  ),
-          ),
-        ],
-      ),
+                      if (isFriendsPage) {
+     final post = posts[index]; // Access the map from the list
+                       return PostCard(
+                         username: post['username']!,
+                         profileImage: post['profileImage']!,
+                         imagePath: post['imagePath']!,
+                         caption: post['caption']!,
+                         timestamp: post['timestamp'],
+                         comments: List<String>.from(post['comments']),
+                         isNetworkImage: false,
+                         onCommentAdded: (comment) {
+                           setState(() {
+                             post['comments'].add(comment); // Add comment to the post
+                           });
+                         },
+                       );
+                     }
+                     else { // show my posts
+                       return _buildPostWidget(discoveryPosts[index]);
+                     }
+                   },
+                 ),
+         ),
+       ],
+     ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
@@ -161,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
-                      "Discovery",
+                      "My Post",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -262,4 +281,60 @@ class _HomePageState extends State<HomePage> {
       ]),
     );
   }
+
+  Widget _buildPostWidget(String imagePath) {
+ // If the imagePath starts with 'assets/', treat it as an asset image.
+    return Column(
+      children: [
+        // Condition to check if extra content should be shown above the GridView
+        if (!isFriendsPage)
+          Container(
+            padding: EdgeInsets.all(10),
+            
+            child: Text(
+              'fitPiece: pea coat',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            
+            child: Text(
+              'find inspiration',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+          ),
+        
+        // GridView displaying images
+        GridView.builder(
+          shrinkWrap: true,  // Use shrinkWrap to prevent the GridView from taking up all available space
+          physics: NeverScrollableScrollPhysics(),  // Prevent scrolling if wrapped in Column
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, // 3 images per row
+            crossAxisSpacing: 0, // Space between columns
+            mainAxisSpacing: 5, // Space between rows
+          ),
+          itemCount: discoveryPosts.length, // Length of the list of images
+          itemBuilder: (context, index) {
+            // Access the map for the post at this index
+            final post = discoveryPosts[index];
+            // Get the image path from the map
+            String imagePath = discoveryPosts[index];
+
+
+            return AspectRatio(
+              aspectRatio: 1 / 3, // Maintain aspect ratio
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.contain, // Adjust this as needed
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  
+  
+ }
+
 }

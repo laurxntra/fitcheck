@@ -67,6 +67,11 @@ flutter:
 
   assets:
     - assets/FitCheck.png
+    - assets/outfit1.png
+    - assets/outfit2.png
+    - assets/outfit3.png
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
