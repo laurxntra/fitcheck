@@ -4,9 +4,7 @@ import 'package:flutter_app/widgets/post_card.dart';
 import '../screens/camera_screen.dart';
 import 'profile_page.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> posts = []; // Now stores timestamp & comments
+  List<Map<String, dynamic>> posts = []; // Stores timestamp & comments
   List<Map<String, dynamic>> discoveryPosts = [];
   bool isFriendsPage = true;
 
@@ -26,7 +24,7 @@ class _HomePageState extends State<HomePage> {
         final newPost = {
           'imagePath': imagePath,
           'caption': caption,
-          'timestamp': DateTime.now(), // Store current time
+          'timestamp': DateTime.now(),
           'comments': <String>[], // Store comments
         };
         if (isFriendsPage) {
@@ -39,8 +37,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _openCamera() async {
-    print("Camera button pressed");
-
     if (!mounted) return;
 
     final capturedPath = await Navigator.push(
@@ -54,8 +50,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    print("Returned from CameraScreen: $capturedPath");
-
     if (capturedPath != null) {
       final postDetails = await Navigator.push(
         context,
@@ -64,6 +58,22 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
+      if (postDetails != null) {
+        addPost(postDetails['imagePath']!, postDetails['caption']!);
+      }
+    }
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null && mounted) {
+      final imagePath = pickedFile.path;
+      final postDetails = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PreviewScreen(imagePath: imagePath),
+        ),
+      );
       if (postDetails != null) {
         addPost(postDetails['imagePath']!, postDetails['caption']!);
       }
@@ -96,8 +106,8 @@ class _HomePageState extends State<HomePage> {
                         profileImage: "https://via.placeholder.com/150",
                         imagePath: post['imagePath']!,
                         caption: post['caption']!,
-                        timestamp: post['timestamp'], // Pass timestamp
-                        comments: post['comments'], // Pass comments
+                        timestamp: post['timestamp'],
+                        comments: post['comments'],
                         isNetworkImage: false,
                         onCommentAdded: (comment) {
                           setState(() {
@@ -166,13 +176,7 @@ class _HomePageState extends State<HomePage> {
           FloatingActionButton(
             backgroundColor: Colors.white,
             onPressed: () => _showImageSourceActionSheet(context),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(Icons.camera_alt, color: Colors.black),
-                // Text('Y', style: TextStyle(color: Colors.black)),
-              ],
-            ),
+            child: const Icon(Icons.camera_alt, color: Colors.black),
           ),
         ],
       ),
@@ -236,54 +240,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showImageSourceActionSheet(BuildContext context) {
-    Function(ImageSource) selectImageSource = (imageSource) {
-      // Add your logic to handle the selected image source
-    };
-
-    if (Platform.isIOS) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (context) => CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(
-              child: const Text('Camera'),
-              onPressed: () {
-                Navigator.pop(context);
-                selectImageSource(ImageSource.camera);
-              },
-            ),
-            CupertinoActionSheetAction(
-              child: const Text('Gallery'),
-              onPressed: () {
-                Navigator.pop(context);
-                selectImageSource(ImageSource.gallery);
-              },
-            ),
-          ],
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Wrap(children: [
+        ListTile(
+          leading: const Icon(Icons.camera_alt),
+          title: const Text('Camera'),
+          onTap: () {
+            Navigator.pop(context);
+            _openCamera();
+          },
         ),
-      );
-    } else {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => Wrap(children: [
-          ListTile(
-            leading: const Icon(Icons.camera_alt),
-            title: const Text('Camera'),
-            onTap: () {
-              Navigator.pop(context);
-              selectImageSource(ImageSource.camera);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.photo_album),
-            title: const Text('Gallery'),
-            onTap: () {
-              Navigator.pop(context);
-              selectImageSource(ImageSource.gallery);
-            },
-          ),
-        ]),
-      );
-    }
+        ListTile(
+          leading: const Icon(Icons.photo_album),
+          title: const Text('Gallery'),
+          onTap: () {
+            Navigator.pop(context);
+            _pickImageFromGallery();
+          },
+        ),
+      ]),
+    );
   }
 }

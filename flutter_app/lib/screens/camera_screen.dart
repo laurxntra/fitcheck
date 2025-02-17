@@ -21,18 +21,24 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _initializeCamera() async {
-    final cameras = await availableCameras();
-    if (cameras.isEmpty) {
-      print("No cameras found.");
-      Navigator.pop(context);
-      return;
-    }
+    try {
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
+        print("No cameras found.");
+        Navigator.pop(context);
+        return;
+      }
 
-    _controller = CameraController(cameras.first, ResolutionPreset.high);
-    await _controller!.initialize();
-    setState(() {
-      _isCameraInitialized = true;
-    });
+      _controller = CameraController(cameras.first, ResolutionPreset.high);
+      await _controller!.initialize();
+      if (mounted) {
+        setState(() {
+          _isCameraInitialized = true;
+        });
+      }
+    } catch (e) {
+      print("Error initializing camera: $e");
+    }
   }
 
   @override
@@ -42,16 +48,15 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _capturePhoto() async {
-  if (!_controller!.value.isInitialized) return;
+    if (!_controller!.value.isInitialized) return;
 
-  final XFile photo = await _controller!.takePicture();
-  final imagePath = photo.path;
+    final XFile photo = await _controller!.takePicture();
+    final imagePath = photo.path;
 
-  // Return image path to the previous screen
-  if (mounted) {
-    Navigator.pop(context, imagePath);
+    if (mounted) {
+      Navigator.pop(context, imagePath);
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
