@@ -1,56 +1,59 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-class PreviewScreen extends StatelessWidget {
+class PreviewScreen extends StatefulWidget {
   final String imagePath;
 
   const PreviewScreen({super.key, required this.imagePath});
 
   @override
+  _PreviewScreenState createState() => _PreviewScreenState();
+}
+
+class _PreviewScreenState extends State<PreviewScreen> {
+  final TextEditingController _captionController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
+      body: Column(
         children: [
-          Center(
-            child: Image.file(File(imagePath), fit: BoxFit.contain),
-          ),
-
-          Positioned(
-            top: 50,
-            left: 20,
-            child: IconButton(
-              icon: const Icon(Icons.close, color: Colors.white, size: 30),
-              onPressed: () {
-                print("User canceled post");
-                Navigator.pop(context, null); 
-              },
+          Expanded(
+            child: Center(
+              child: Image.file(File(widget.imagePath), fit: BoxFit.contain),
             ),
           ),
-
-          Positioned(
-            bottom: 40,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              controller: _captionController,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                hintText: "Write a caption...",
+                hintStyle: TextStyle(color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                onPressed: () {
-                  print("User posted image: $imagePath");
-                  if (Navigator.canPop(context)) {
-                    Navigator.pop(context, imagePath); 
-                  }
-                },
-                child: const Text(
-                  "Post",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
-                ),
+                filled: true,
+                fillColor: Colors.grey[800],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              ),
+              onPressed: () {
+                String caption = _captionController.text.trim();
+                Navigator.pop(context, {"imagePath": widget.imagePath, "caption": caption});
+              },
+              child: const Text(
+                "Post",
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ),
             ),
           ),

@@ -6,6 +6,7 @@ class PostCard extends StatelessWidget {
   final String profileImage;
   final String imagePath;
   final String timeAgo;
+  final String caption;
   final bool isNetworkImage;
 
   const PostCard({
@@ -14,6 +15,7 @@ class PostCard extends StatelessWidget {
     required this.profileImage,
     required this.imagePath,
     required this.timeAgo,
+    required this.caption,
     this.isNetworkImage = true,
   }) : super(key: key);
 
@@ -31,7 +33,9 @@ class PostCard extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(profileImage),
+                backgroundImage: profileImage.isNotEmpty && profileImage.startsWith('http')
+                    ? NetworkImage(profileImage)
+                    : const AssetImage('assets/default_avatar.png') as ImageProvider,
                 radius: 20,
               ),
               const SizedBox(width: 10),
@@ -63,45 +67,32 @@ class PostCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           // Main Image Container
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: isNetworkImage
-                    ? Image.network(
-                        imagePath,
-                        width: double.infinity,
-                        height: 400,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.file(
-                        File(imagePath),
-                        width: double.infinity,
-                        height: 400,
-                        fit: BoxFit.cover,
-                      ),
-              ),
-              Positioned(
-                top: 10,
-                left: 10,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: Image.network(
-                      profileImage,
-                      fit: BoxFit.cover,
-                    ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: isNetworkImage
+                ? Image.network(
+                    imagePath,
+                    width: double.infinity,
+                    height: 400,
+                    fit: BoxFit.contain,
+                  )
+                : Image.file(
+                    File(imagePath),
+                    width: double.infinity,
+                    height: 400,
+                    fit: BoxFit.contain,
                   ),
-                ),
-              ),
-            ],
           ),
           const SizedBox(height: 10),
+          // Caption Display
+          if (caption.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Text(
+                caption,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

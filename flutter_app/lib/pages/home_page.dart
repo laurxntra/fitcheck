@@ -10,54 +10,54 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> posts = []; 
-  List<String> discoveryPosts = []; 
+  List<Map<String, String>> posts = []; 
+  List<Map<String, String>> discoveryPosts = []; 
   bool isFriendsPage = true; 
 
-  void addPost(String imagePath) {
+  void addPost(String imagePath, String caption) {
     if (mounted) {
       setState(() {
+        final newPost = {'imagePath': imagePath, 'caption': caption};
         if (isFriendsPage) {
-          posts.insert(0, imagePath);
+          posts.insert(0, newPost);
         } else {
-          discoveryPosts.insert(0, imagePath);
+          discoveryPosts.insert(0, newPost);
         }
       });
     }
   }
 
   Future<void> _openCamera() async {
-  print("Camera button pressed");
+    print("Camera button pressed");
 
-  if (!mounted) return;
+    if (!mounted) return;
 
-  final capturedPath = await Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) => CameraScreen(
-        onImageCaptured: (imagePath) {
-          Navigator.pop(context, imagePath); // Return imagePath when captured
-        },
-      ),
-    ),
-  );
-
-  print("Returned from CameraScreen: $capturedPath");
-
-  if (capturedPath != null) {
-    final postedImage = await Navigator.push(
+    final capturedPath = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PreviewScreen(imagePath: capturedPath),
+        builder: (_) => CameraScreen(
+          onImageCaptured: (imagePath) {
+            Navigator.pop(context, imagePath);
+          },
+        ),
       ),
     );
 
-    if (postedImage != null) {
-      addPost(postedImage);
+    print("Returned from CameraScreen: $capturedPath");
+
+    if (capturedPath != null) {
+      final postDetails = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PreviewScreen(imagePath: capturedPath),
+        ),
+      );
+
+      if (postDetails != null) {
+        addPost(postDetails['imagePath']!, postDetails['caption']!);
+      }
     }
   }
-}
-
 
   void _toggleFeed(bool isFriendsSelected) {
     setState(() {
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          _buildTopBar(), 
+          _buildTopBar(),
           Expanded(
             child: (isFriendsPage ? posts : discoveryPosts).isEmpty
                 ? _buildEmptyFeed()
@@ -82,8 +82,9 @@ class _HomePageState extends State<HomePage> {
                       return PostCard(
                         username: "User",
                         profileImage: "https://via.placeholder.com/150",
-                        imagePath: isFriendsPage ? posts[index] : discoveryPosts[index],
+                        imagePath: isFriendsPage ? posts[index]['imagePath']! : discoveryPosts[index]['imagePath']!,
                         timeAgo: "Just now",
+                        caption: isFriendsPage ? posts[index]['caption']! : discoveryPosts[index]['caption']!,
                         isNetworkImage: false,
                       );
                     },
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            margin: const EdgeInsets.only(bottom: 15), 
+            margin: const EdgeInsets.only(bottom: 15),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.9),
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
-                  onTap: () => _toggleFeed(true), 
+                  onTap: () => _toggleFeed(true),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
@@ -124,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => _toggleFeed(false), 
+                  onTap: () => _toggleFeed(false),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
