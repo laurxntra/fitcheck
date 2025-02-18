@@ -66,11 +66,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/FitCheck.png
-    - assets/outfit1.png
-    - assets/outfit2.png
-    - assets/outfit3.png
-    - assets/cameraIcon.png
+    - assets/
 
 
 

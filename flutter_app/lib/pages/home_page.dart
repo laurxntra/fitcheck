@@ -287,10 +287,29 @@ void _toggleFeed(bool isFriendsSelected) {
           Container(
             padding: EdgeInsets.all(10),
             
-            child: Text(
-              'fitPiece: pea coat',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Color(0xffd64117)),
-              textAlign: TextAlign.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Ensures it takes only the necessary space
+              children: [
+                Text(
+                  "Today's fitPiece:",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff872626),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 5), // Adds spacing between the two lines
+                Text(
+                  'pea coat',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffd64117),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
 
@@ -302,13 +321,13 @@ void _toggleFeed(bool isFriendsSelected) {
                 child: InkWell(
                   onTap: () => _showImageSourceActionSheet(context),
                   child: SizedBox(
-                    height: 300, 
+                    height: 250, 
                     width: 250, 
                     child: Image.asset(
-                      'assets/cameraIcon.png', 
+                      'assets/UploadTriggerClean.png', 
                       fit: BoxFit.cover,
-                      width: 200, 
-                      height: 300, 
+                      width: 250, 
+                      height: 250, 
                     ),
                   ),
                 ),
