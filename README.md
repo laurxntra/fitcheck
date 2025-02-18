@@ -65,9 +65,13 @@ Folder Structure
 __________________
 flutter_app/
 │── lib/                 # Main application code
+
 │   ├── main.dart        # Entry point of the application (view posts)
+
 │   ├── screens/         # UI screens of the app
+
 │   ├── widgets/         # Reusable widgets
+
 │   ├── services/        # API and business logic services
 │── assets/              # Static assets (images, fonts, etc.)
 │── test/                # Unit and widget tests
