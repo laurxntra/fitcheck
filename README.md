@@ -73,12 +73,19 @@ flutter_app/
 │   ├── widgets/         # Reusable widgets
 
 │   ├── services/        # API and business logic services
+
 │── assets/              # Static assets (images, fonts, etc.)
+
 │── test/                # Unit and widget tests
+
 │── pubspec.yaml         # Flutter project configuration and dependencies
+
 │── android/             # Android-specific configuration
+
 │── ios/                 # iOS-specific configuration
+
 │── web/                 # Web-related files (if applicable)
+
 │── README.md            # Project documentation
 
 -> README.md 
