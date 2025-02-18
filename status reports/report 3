@@ -1,0 +1,90 @@
+NOTES FOR PM:
+--------------------------------------------------------------------
+- How do we begin setting up database?
+
+PROJECT STATUS:
+--------------------------------------------------------------------
+Goals for the week:
+- Have working main pages with ability to navigate in-app by end of week
+- Connect and set up AWS backend for databases by beggining of week
+- Compelete test writing for major & basic features by begginng of week
+- Complete the Firebase Authentication for login/user setup by end of week
+- Viable profile system integrated by end of weekend
+
+Progress and issues:
+- Created main pages (home, explore, profile)
+- Implemented photo upload feature
+- Implemented scrollable posts feature
+- Begain implementation of backend
+- Created powerpoint for demo presentation
+- UI/branding changes implemented
+
+Goals for next week:
+- Finish implementing backend to allow for actual post loading by mid week
+- Implement actual post retrieval/storage by end of week
+- Implement following/followers feature by end of week
+- Test functionality of explore page by mid week
+- Begin implementing awarding feature by end of week
+- Begin implementing leaderboard feature by end of weel
+- Complete weekly project assignment in living doc by end of week
+- Create status report by Tuesday
+
+
+INDIVIDUAL PROGRESS & TEAM PLANS:
+--------------------------------------------------------------------
+Agenda for next Thurs meeting:
+- Review backend
+- Clearly identify what needs to be done and who is responsible
+- Schedule check ins and other meetings
+
+Irfan:
+=============
+Progress & Issues:
+- Set up personal branch
+- Created/commited scrollable ListView page for homepage (after posting)
+- Create post card widget
+- Created pull requests to main from own code, reviewed others pull requests
+- Resolved dependency issues between Windows & Mac development
+- Wrote status report for the week
+- Made the slides for the demo (reflections, additional features...)
+Goals for the Week:
+- Begin creating scrollable interface for posts by end of week
+- Set up branch and plug in tools as necessary by mid week
+- Be responsible for Windows vs Mac dev set up differences by mid week
+- Create status report by end of week
+- Create slides for presentation by end of week
+Goals for Next Week:
+- Begin helping with the actual retrieval of posts for scrolling once backend is finished by end of week
+- Implement framework for awarding system by end of week
+- Adjust UI to look better/diverge from BeReal copycat by midweek
+- Create a rotating daily theme to replace current fixed one by midweek
+
+Yasmine:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Aleksey:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Chaafen:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Lauren:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Leanna: 
+============= 
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
