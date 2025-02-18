@@ -80,8 +80,24 @@ Goals for Next Week:
 Lauren:
 =============
 Progress & Issues:
+- Created profile_page.dart file in project. Awaiting for backend to be completed
+before syncing follower/following/posts/user information/etc. data into profile page
+- Created slides for presentation (Motivation, Architecture, Implementation approach)
+- Fixed bug between login/sign up authentication pages
+- Created first prototype of scroll/view on homepage (got reworked to a better format!)
+- Project status report maintenance (TODO, in progress, FINISHED)
 Goals for the Week:
+- Complete beta entirely with the 3 pages we had in mind for our presentation and our assignment
+- Implement all backend, database to frontend UI
+- Begin creating additional features (mentioned in slides)
+- Add a database full of themes -- maybe in the feature has special themes for specific
+ days/events (valentines theme, 4th of july look, halloween theme)
 Goals for Next Week:
+- Ensure there is no bugs between backend - frontend (everything should be smooth)
+- Update project status
+- Complete beta++ with guidelines assignment
+- Complete beta presentation learnings
+- Keep implementing additional features, if complete, rework it so it runs smoother
 
 Leanna: 
 ============= 
