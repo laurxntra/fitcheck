@@ -6,9 +6,11 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/phone_login.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_app/pages/home_page.dart';
 import 'package:flutter_app/pages/otp_verification.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 
 void main() {
@@ -20,7 +22,7 @@ void main() {
   });
 
 // test for toggling between "Friends" and "My Post" on home page
-    testWidgets('Toggle feed between friends and discovery', (WidgetTester tester) async {
+    testWidgets('Toggle feed between friends and my post', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: HomePage()));
     await tester.pumpAndSettle();
 
@@ -64,6 +66,19 @@ void main() {
 
       // Verify navigation to the home screen.
         expect(find.text('Home Screen'), findsOneWidget);
+    });
+
+    testWidgets('Validates phone number and enables button', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: PhoneLoginScreen()));
+
+      await tester.pumpAndSettle();
+
+      // Enter a valid phone number.
+      await tester.enterText(find.byType(IntlPhoneField), '1234567890');
+      await tester.pump();
+
+      // Verify that the "Send Verification Code" button is enabled.
+      expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).enabled, isTrue);
     });
   }
 }
