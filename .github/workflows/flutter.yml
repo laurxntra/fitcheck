@@ -15,14 +15,17 @@ jobs:
         with:
           channel: stable
 
-      - name: Change directory to project root
-        run: cd my_flutter_app
+      - name: Change directory and get dependencies
+        run: |
+          cd /Users/laurxntra/Desktop/CSE403/fitcheck
+          flutter pub get
 
-      - name: Get dependencies
-        run: flutter pub get
+      - name: Change directory and run tests
+        run: |
+          cd /Users/laurxntra/Desktop/CSE403/fitcheck
+          flutter test
 
-      - name: Run tests
-        run: flutter test
-
-      - name: Build APK
-        run: flutter build apk
+      - name: Change directory and build APK
+        run: |
+          cd /Users/laurxntra/Desktop/CSE403/fitcheck
+          flutter build apk
