@@ -7,24 +7,63 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_app/pages/home_page.dart';
+import 'package:flutter_app/pages/otp_verification.dart';
 
-import 'package:flutter_app/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  // test for homepage display
+   testWidgets('Homepage display is empty', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: HomePage()));
+      await tester.pumpAndSettle();
+      expect(find.text("No posts yet.\nTake a picture!"), findsOneWidget);
   });
+
+// test for toggling between "Friends" and "My Post" on home page
+    testWidgets('Toggle feed between friends and discovery', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: HomePage()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Friends'), findsOneWidget);
+    expect(find.text('My Post'), findsOneWidget);
+
+    await tester.tap(find.text('My Post'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Friends'), findsOneWidget);
+    expect(find.text('My Post'), findsOneWidget);
+    });
+
+  {
+    // test for otp verification
+    testWidgets('OTP input and button press', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: OtpVerificationScreen(),
+          onGenerateRoute: (settings) {
+            return MaterialPageRoute(
+              settings: RouteSettings(arguments: {'phoneNumber': '123-456-7890'}),
+              builder: (_) => OtpVerificationScreen(),
+            );
+          },
+          routes: {
+            '/home': (context) => Scaffold(body: Center(child: Text('Home Screen'))),
+          },
+        ),
+      );
+
+        await tester.pumpAndSettle();
+
+      // Enter OTP.
+        await tester.enterText(find.byType(TextField), '123456');
+        await tester.pump();
+
+      // Press the "Verify & Continue" button.
+        await tester.tap(find.text('Verify & Continue'));
+        await tester.pumpAndSettle();
+
+      // Verify navigation to the home screen.
+        expect(find.text('Home Screen'), findsOneWidget);
+    });
+  }
 }
