@@ -3,6 +3,7 @@ NOTES FOR PM:
 - How do we begin setting up database?
 
 NOTES TO OURSELVES:
+--------------------------------------------------------------------
 - Image processing --> when users take a photo, the feed crops it so that it is in a square format
 it does not allow for the full image to be seen, so if someone were taking a photo of their outfit
 their shoes or hat for example could be cut off based off the centering of our feed format.
