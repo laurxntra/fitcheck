@@ -17,15 +17,15 @@ jobs:
 
       - name: Change directory and get dependencies
         run: |
-          cd fitcheck
+          cd flutter_app
           flutter pub get
 
       - name: Change directory and run tests
         run: |
-          cd fitcheck
+          cd flutter_app
           flutter test
 
       - name: Change directory and build APK
         run: |
-          cd fitcheck
+          cd flutter_app
           flutter build apk
