@@ -83,8 +83,18 @@ Goals for Next Week:
 Aleksey:
 =============
 Progress & Issues:
+- I had a lot of issues with setting up Firebase but we switched to AWS so don't have to worry
+- The frontend of the app looks pretty solid, we changed the app up so it looks more unique
+- We started working on adapting the backend to work on the app
 Goals for the Week:
+- Look at possible UI changes
+- Get input from friends or just people on possible changes on what they like or don't like
+- Make the profile page feel more unique and special
 Goals for Next Week:
+- Work on the leaderboard
+- Work on voting system
+- Impliment a possible feature of saving fits and looking at discovery fits to save
+- Make the app feel more smooth and make sure there are no bugs
 
 Chaafen:
 =============
