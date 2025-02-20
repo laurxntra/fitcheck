@@ -127,5 +127,15 @@ Goals for Next Week:
 Leanna: 
 ============= 
 Progress & Issues:
+- Made progress with AWS and learning about the S3 buckets
+- Issues with coming up with robust and specific tests for the application
+- Research more on the backend and slowly integrating it to the entire app
 Goals for the Week:
+- Get feedback on the UI/concept from community
+- Start working and implementing the save/board feature to save users fits (will have private/public option)
+- Identity any bugs the current state of our app has
 Goals for Next Week:
+- Complete the save feature for outfits
+- Implement all 3 types of testing flutter provides (widget, unit, and integration)
+- Fix any bugs that were discovered last week
+- Incorporate in any security testing
