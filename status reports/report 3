@@ -68,8 +68,17 @@ Goals for Next Week:
 Yasmine:
 =============
 Progress & Issues:
+- I have created a aws developer account and synched it with our project. 
+- I watched a lot of videos on connecting aws with flutter applications. 
+- Wrote the code for the user authentication. 
+- However, a issue I have been running into is running my xcode. 
+
 Goals for the Week:
+- Fix the issue with running the Xcode. 
+- Finish configuring the backend.
+
 Goals for Next Week:
+- Add testing.
 
 Aleksey:
 =============
