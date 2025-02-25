@@ -4,7 +4,70 @@ IRFAN - A high-level description. What does the system do and why would a user w
 
 Aleksey - How to install the software (if applicable). If your system has prerequisites (e.g., tools, libraries, emulators, third-party applications, etc.), your instructions should list all of them and indicate how to install and configure them. Make sure to indicate what specific version requirements these prerequisites must satisfy. If running the system requires the installation of, e.g., a virtual machine, a database, or an emulator, make sure to provide clear step-by-step instructions.
 
-Lauren - How to run the software. How to start up the system (e.g., a getting started guide)? Are there mobile device or browser requirements?
+Lauren - How to run the software. How to start up the system (e.g., a getting started guide)?
+Are there mobile device or browser requirements?
+
+How To Run the Software
+--------------------------
+Running the Software in Xcode (iOS Simulator)
+1. Open the Project in Xcode on your Mac.
+    - Launch xCode on your Mac
+    - Open the project by selecting File > Open and navifate to the project directory, then selecting the
+      Runner.xcworkspace file.
+2. Select the iOS simulator
+    - In the top bar, next to the "Run" button, you will see the device selection dropdown. Click it to choose
+      the desired iOS Simulator (e.g., iPhone 15)
+3. Run the Application
+    - Click the "Run" button at the top of Xcode
+    - Xcode will build the project and launch the app in the selected simulator
+
+Running the Software in Android Studio (Android Emulator)
+1. Open the Project in Android Studio
+    - Launch Android Studio on your computer
+    - Open the project by selecting File > Open and navigating to the project directory
+2. Create or Select an Android Virtual Device (AVD)
+    - Open the AVD Manager by selecting Tools > AVD Manager
+    - If you do not have an existing AVD, create a new one by clicking the "Create Virtual Device" button and
+      following the prompts to select a device type, system image, and other configurations
+    - Select a device (e.g., Pixel 3) and system image (e.g., API Level 30)
+3. Launch the Android Emulator
+    - Click the "Play" button next to the desired AVD in the AVD Manager to launch the emulator
+4. Run the Application
+    - In Android Studio, ensure the target device dropdown in the top bar is set to your running emulator
+    - Click the "Run" button 
+    - Android Studio will build the project and launch the app in the emulator
+
+Running the Software on an iOS Device
+1. Connect Your iOS Device
+    - Use a USB/USB-C cable to connect your iphone to your Mac
+2. Trust the Device
+    -  On your iOS device, you may see a prompt asking you to trust the computer. Tap "Trust" and enter your
+       device passcode.
+3. Open the Project in Xcode
+    - Launch XCode on your Mac and open the flutter project by selecting File > Open and navigating to the 
+      project's directory, then selecting the Runner.xcworkspace file
+4. Select Your iOS Device
+    - In the top bar, next to the "Run" button, you will see the device selection dropdown. Select your connected
+      iOS device.
+5. Run the Application
+    - Click the "Run" button to build and run the app on your iOS device.
+
+Running the Software on an Android Device
+1. Enable Developer Options
+    -  On your Android device, go to Settings > About phone and tap "Build number" seven times to enable
+        Developer Options.
+2. Enable USB Debugging
+    -  Go to Settings > Developer options and enable "USB debugging"
+3. Connect Your Android Device
+    -  Use a USB cable to connect your Android device to your computer
+4. Authorize Debugging
+    -  You may see a prompt on your Android device asking if you want to allow USB debugging. Tap "Allow"
+5. Open the Project in Android Studio
+    - Launch Android Studio and open the flutter project by selecting File > Open and nagivating to the project directory
+6. Select Your Android Device
+    - In Android Studio, ensure the target device dropdown in the top bar is set to your connected Android device.
+7. Run the Application
+    -  Click "Run" button in Android Studo to build and run the app on your Android device.
 
 LEANNA - How to use the software. How does the user use the main features? You can assume that your user is familiar with your particular platform (e.g., use of a web browser, desktop applications, or mobile applications). For missing functionality, your documentation should simply indicate that this functionality is work in progress.
 
