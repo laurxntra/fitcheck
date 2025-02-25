@@ -4,7 +4,29 @@ IRFAN - The layout of your directory structure. What do the various directories 
 
 Aleksey - How to build the software. Provide clear instructions for how to use your project’s build system to build all system components.
 
-Lauren - How to test the software. Provide clear instructions for how to run the system’s test cases. In some cases, the instructions may need to include information such as how to access data sources or how to interact with external systems. You may reference the user documentation (e.g., prerequisites) to avoid duplication.
+Lauren - How to test the software. Provide clear instructions for how to run the system’s test cases. 
+In some cases, the instructions may need to include information such as how to access data sources or 
+how to interact with external systems. You may reference the user documentation (e.g., prerequisites) 
+to avoid duplication.
+
+How to Test the Software
+---------------------------
+Prerequisites - Before running the tests, make sure you have the following installed:
+- Xcode (for iOS development)
+- Android Studio (for Android development)
+- Flutter and Dart SDK
+
+Running Test Cases
+1. Clone the repository
+  $ git clone https://github.com/chaafenr/fitcheck.git
+  $ cd fitcheck
+  $ cd flutter_app
+
+2. Install Dependencies
+  $ flutter pub get
+
+3. Run Unit Tests
+  $ flutter test
 
 LEANNA - How to add new tests. Are there any naming conventions/patterns to follow when naming test files? Is there a particular test harness to use?
 
