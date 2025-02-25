@@ -6,7 +6,7 @@ Aleksey - How to install the software (if applicable). If your system has prereq
 
 Lauren - How to run the software. How to start up the system (e.g., a getting started guide)? Are there mobile device or browser requirements?
 
-- How to use the software. How does the user use the main features? You can assume that your user is familiar with your particular platform (e.g., use of a web browser, desktop applications, or mobile applications). For missing functionality, your documentation should simply indicate that this functionality is work in progress.
+LEANNA - How to use the software. How does the user use the main features? You can assume that your user is familiar with your particular platform (e.g., use of a web browser, desktop applications, or mobile applications). For missing functionality, your documentation should simply indicate that this functionality is work in progress.
 
 - How to report a bug. This should include not just the mechanics (a pointer to your issue tracker), but also what information is needed. You can set up a bug-report template in your issue tracker, or you can reference a resource about how to write a good bug report. Here is an example for bug reporting guidelines.
 
