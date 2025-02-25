@@ -1,1 +1,91 @@
+NOTES FOR PM:
+--------------------------------------------------------------------
+- S3 Bucket Integration?
 
+NOTES TO OURSELVES:
+--------------------------------------------------------------------
+- Image processing --> when users take a photo, the feed crops it so that it is in a square format
+it does not allow for the full image to be seen, so if someone were taking a photo of their outfit
+their shoes or hat for example could be cut off based off the centering of our feed format.
+
+PROJECT STATUS:
+--------------------------------------------------------------------
+Goals for the week:
+- Have working main pages with ability to navigate in-app by end of week
+- Connect and set up AWS backend for databases by beggining of week
+- Compelete test writing for major & basic features by begginng of week
+- Complete the Firebase Authentication for login/user setup by end of week
+- Viable profile system integrated by end of weekend
+
+Progress and issues:
+- Created main pages (home, explore, profile)
+- Implemented photo upload feature
+- Implemented scrollable posts feature
+- Begain implementation of backend
+- Created powerpoint for demo presentation
+- UI/branding changes implemented
+
+Goals for next week:
+- Finish implementing backend to allow for actual post loading by mid week
+- Implement actual post retrieval/storage by end of week
+- Implement following/followers feature by end of week
+- Test functionality of explore page by mid week
+- Begin implementing awarding feature by end of week
+- Begin implementing leaderboard feature by end of weel
+- Complete weekly project assignment in living doc by end of week
+- Create status report by Tuesday
+
+
+INDIVIDUAL PROGRESS & TEAM PLANS:
+--------------------------------------------------------------------
+Agenda for next Thurs meeting:
+- Discuss backend
+- Schedule future milestones
+
+Irfan:
+=============
+Progress & Issues:
+- Created/commited changes to UI and posting page layout
+- Create inspiration post card widget
+- Reviewed others pull requests
+- Resolved problem with camera difference between Windows & Mac development 
+- Wrote status report for the week
+- Created user manual and dev guide and assigned parts
+Goals for the Week:
+- Begin helping with the actual retrieval of posts for scrolling once backend is finished by end of week
+- Implement framework for awarding system by end of week
+- Adjust UI to look better/diverge from BeReal copycat by midweek
+- Create a rotating daily theme to replace current fixed one by midweek
+Goals for Next Week:
+- 
+
+
+Yasmine:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Aleksey:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Chaafen:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Lauren:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Leanna: 
+============= 
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
