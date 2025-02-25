@@ -11,21 +11,6 @@ their shoes or hat for example could be cut off based off the centering of our f
 PROJECT STATUS:
 --------------------------------------------------------------------
 Goals for the week:
-- Have working main pages with ability to navigate in-app by end of week
-- Connect and set up AWS backend for databases by beggining of week
-- Compelete test writing for major & basic features by begginng of week
-- Complete the Firebase Authentication for login/user setup by end of week
-- Viable profile system integrated by end of weekend
-
-Progress and issues:
-- Created main pages (home, explore, profile)
-- Implemented photo upload feature
-- Implemented scrollable posts feature
-- Begain implementation of backend
-- Created powerpoint for demo presentation
-- UI/branding changes implemented
-
-Goals for next week:
 - Finish implementing backend to allow for actual post loading by mid week
 - Implement actual post retrieval/storage by end of week
 - Implement following/followers feature by end of week
@@ -34,6 +19,19 @@ Goals for next week:
 - Begin implementing leaderboard feature by end of weel
 - Complete weekly project assignment in living doc by end of week
 - Create status report by Tuesday
+
+Progress and issues:
+- Have working main pages with ability to navigate in-app 
+- Connected and set up AWS backend 
+- Compeleted test writing for major & basic features 
+- Completed project demo and slides
+- Integrated posting, scrolling, profile pages
+
+Goals for next week:
+- Have a fully functioning award system by end of week
+- Have a fully functioning leaderboards page by end of week
+- Have a unique brand identity established (ongoing)
+- Have a simple notification system in place by mid week
 
 
 INDIVIDUAL PROGRESS & TEAM PLANS:
@@ -57,7 +55,10 @@ Goals for the Week:
 - Adjust UI to look better/diverge from BeReal copycat by midweek
 - Create a rotating daily theme to replace current fixed one by midweek
 Goals for Next Week:
-- 
+- Implement awards and saving stats to backend by end of week
+- Implement followers, following lists per user profile by end of week
+- Learn about gameservices package for Flutter leaderboards by mid week
+- Research notifications through Dart by Tues
 
 
 Yasmine:
