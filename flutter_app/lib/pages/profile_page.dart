@@ -1,53 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+  import 'home_page.dart'; 
+
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset(
-          'assets/FitCheck.png', 
-           height: 100,
-        )
-      ),
-      body: ListView(
+      body: Column(
         children: [
-          Column(
-            children: [
-              _buildHeader(),
-              _buildProfileInfo(),
-              _buildButtons(),
-              _buildTabBar(),
-              _buildProfileGrid(),
-            ],
-          )
+          _buildTopBar(context),
+          Expanded(
+            child: ListView(
+              children: [
+                Column(
+                  children: [
+                    _buildHeader(),
+                    _buildProfileInfo(),
+                    _buildButtons(),
+                    _buildTabBar(),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
-      )
+      ),
     );
   }
 
-Widget _buildHeader() {
+
+Widget _buildTopBar(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
+    padding: const EdgeInsets.only(top: 70, left: 16, right: 16, bottom: 10),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CircleAvatar(
-          radius: 40,
+        IconButton(
+          icon: const Icon(Icons.group, color: Color(0xffd0addc), size: 28),
+          onPressed: () {
+            // Add functionality if needed
+          },
         ),
-        SizedBox(height: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'name display',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-            ),
-            Text(
-              '@username',
-              style: TextStyle(fontSize: 15),
-            ),
-            Text('Insert bio here'),
-          ],
+        GestureDetector(
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          },
+          child: Image.asset(
+            'assets/FitCheck.png',
+            height: 75,
+            fit: BoxFit.contain,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            // Add functionality if needed
+          },
+          child: const CircleAvatar(
+            radius: 24,
+            backgroundColor: Color(0xffd0addc),
+            child: Icon(Icons.person, color: Colors.white, size: 26),
+          ),
         ),
       ],
     ),
@@ -55,13 +72,42 @@ Widget _buildHeader() {
 }
 
 
+  Widget _buildHeader() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          const CircleAvatar(
+            radius: 40,
+            backgroundColor: Color(0xffd0addc),
+            child: Icon(Icons.person, size: 40, color: Colors.white),
+          ),
+          const SizedBox(height: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Text(
+                'name display',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              ),
+              Text(
+                '@username',
+                style: TextStyle(fontSize: 15),
+              ),
+              Text('Insert bio here'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildProfileInfo() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // all these need to be connected to database
           _buildProfileInfoItem('Posts', '120'),
           _buildProfileInfoItem('Followers', '1.2M'),
           _buildProfileInfoItem('Following', '1'),
@@ -76,14 +122,14 @@ Widget _buildHeader() {
       children: [
         Text(
           count,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         Text(label),
       ],
     );
   }
 
-    Widget _buildButtons() {
+  Widget _buildButtons() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
@@ -91,30 +137,43 @@ Widget _buildHeader() {
           Expanded(
             child: ElevatedButton(
               onPressed: () {},
-              child: Text('Edit Profile'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xff872626),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: const Text(
+                'Edit Profile',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ],
       ),
     );
   }
-    Widget _buildTabBar() {
+
+  Widget _buildTabBar() {
     return DefaultTabController(
       length: 2,
       child: Column(
         children: [
-          TabBar(
+          const TabBar(
+            indicatorColor: Color(0xff872626),
+            labelColor: Color(0xff872626),
+            unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(icon: Icon(Icons.grid_on)),
               Tab(icon: Icon(Icons.favorite)),
             ],
           ),
-          Container(
+          SizedBox(
             height: 400,
             child: TabBarView(
               children: [
                 _buildProfileGrid(),
-                Center(child: Text('Favorites')),
+                const Center(child: Text('Favorites')),
               ],
             ),
           ),
@@ -123,20 +182,21 @@ Widget _buildHeader() {
     );
   }
 
-    Widget _buildProfileGrid() {
-    return StaggeredGridView.countBuilder(
-      crossAxisCount: 4,
+  Widget _buildProfileGrid() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 4,
+        mainAxisSpacing: 4,
+      ),
       itemCount: 30,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (context, index) {
         return Container(
           color: Colors.grey[300],
         );
       },
-      staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
     );
   }
 }
