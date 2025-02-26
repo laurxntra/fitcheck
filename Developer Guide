@@ -7,8 +7,9 @@ Aleksey - How to build the software. Provide clear instructions for how to use y
 Prerequisites
   - Install Flutter and Dark SDK
   - Install Xcode
-  -Install Android Studio
-  -Ensure flutter doctor passes all checks 
+  - Install Android Studio
+  - Ensure flutter doctor passes all checks by running:
+        flutter doctor 
   
 Building the Software for iOS
   1. Launch Xcode on your mac
