@@ -76,8 +76,20 @@ Goals for Next Week:
 Chaafen:
 =============
 Progress & Issues:
+- Worked with Yasmine on the back end
+- Modified dependencies and Runner settings in Xcode, managed to rid all iOS errors
+  - Now i am facing an AWS error, where it won't let me use objects from AWS without new import statements
+    but when i make new import statements it says they are redundant
+- Worked on Beta++ sections: known bugs, how to access source code
+- Looked through reddit and stack overflow for info on our AWS issue
+
 Goals for the Week:
+- Meet with Yasmine and work on re-installing AWS features
+- Align my Runner settings with her as well
+- Meet in office hours or seek assistance
+
 Goals for Next Week:
+- If AWS is not set-up, figure out if Firebase is something we can integrate at this point
 
 Lauren:
 =============
