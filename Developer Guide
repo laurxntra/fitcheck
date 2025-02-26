@@ -4,6 +4,32 @@ IRFAN - The layout of your directory structure. What do the various directories 
 
 Aleksey - How to build the software. Provide clear instructions for how to use your project’s build system to build all system components.
 
+Prerequisites
+  - Install Flutter and Dark SDK
+  - Install Xcode
+  -Install Android Studio
+  -Ensure flutter doctor passes all checks 
+  
+Building the Software for iOS
+  1. Launch Xcode on your mac
+  2. Open the project by selecting File > Open and navigating to the project directory
+  3. Select the Runner.xcworkspace file
+  4. Inside of your project terminal, navigate to the ios directory and install CocoaPods dependencies
+      cd ios && pod install
+  5. Inside of Xcode, find the device selection dropdown on top of your screen and select an iOS device
+  6. Then click the build button to compile the project
+
+Building the Software for Android
+  1. Launch Android Studio on your computer
+  2. Open the project by selecting File > Open and navigating to the project directory
+  3. Install dependencies by opening the terminal in Android Studio and running:
+    flutter pub get
+  4. Open the AVD Manager by selecting Tools > AVD Manager
+  5. Create or select an Android Virtual Device if one does not exist
+  6. Launch the Android Emulator by clicking the Play button next to the selected AVD.
+  7. Inside Android Studio, select the target device from the top bar.
+  8. Click the build button
+
 Lauren - How to test the software. Provide clear instructions for how to run the system’s test cases. 
 In some cases, the instructions may need to include information such as how to access data sources or 
 how to interact with external systems. You may reference the user documentation (e.g., prerequisites) 
