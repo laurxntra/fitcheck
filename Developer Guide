@@ -7,6 +7,7 @@ Aleksey - How to build the software. Provide clear instructions for how to use y
 Prerequisites
   - Install Flutter and Dark SDK
   - Install Xcode
+  - Install Visual Studio Code
   - Install Android Studio
   - Ensure flutter doctor passes all checks by running:
         flutter doctor 
@@ -15,10 +16,13 @@ Building the Software for iOS
   1. Launch Xcode on your mac
   2. Open the project by selecting File > Open and navigating to the project directory
   3. Select the Runner.xcworkspace file
-  4. Inside of your project terminal, navigate to the ios directory and install CocoaPods dependencies
+  4. Open the terminal in Visual Studio Code by selecting the project-specific terminal (flutter_app directory)
+  5. Install dependencies by running:
+    flutter pub get
+  6. Inside of your project terminal, navigate to the ios directory and install CocoaPods dependencies
       cd ios && pod install
-  5. Inside of Xcode, find the device selection dropdown on top of your screen and select an iOS device
-  6. Then click the build button to compile the project
+  7. Build and run hte project from the terminal
+      flutter run
 
 Building the Software for Android
   1. Launch Android Studio on your computer
