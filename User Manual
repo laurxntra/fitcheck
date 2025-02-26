@@ -115,5 +115,5 @@ LEANNA - How to use the software. How does the user use the main features? You c
 
 YASMINE - How to report a bug. This should include not just the mechanics (a pointer to your issue tracker), but also what information is needed. You can set up a bug-report template in your issue tracker, or you can reference a resource about how to write a good bug report. Here is an example for bug reporting guidelines.
 
-- Known bugs. Known bugs or limitations should be documented in the bug tracker. A user testing the implemented use case(s) should not encounter trivial bugs or a large number of bugs that are unlisted in your bug tracker.
+Chaafen - Known bugs. Known bugs or limitations should be documented in the bug tracker. A user testing the implemented use case(s) should not encounter trivial bugs or a large number of bugs that are unlisted in your bug tracker.
 
