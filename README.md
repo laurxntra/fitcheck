@@ -88,4 +88,11 @@ flutter_app/
 
 │── README.md            # Project documentation
 
+## 📌 Beta++ Release
+
+This is the **Beta++ release** of FitCheck, including all current documentation and features.
+
+**Release Tag:** [v1.0-beta++](https://github.com/chaafenr/fitcheck/releases/tag/v1.0-beta++)  
+**Last Commit Date: 2/25/2025
+
 -> README.md 
