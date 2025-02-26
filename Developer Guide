@@ -148,5 +148,29 @@ Running Test Cases
 
 LEANNA - How to add new tests. Are there any naming conventions/patterns to follow when naming test files? Is there a particular test harness to use?
 
+How to Add New Tests
+---------------------------
+- Test Naming Conventions
+    - Test files should be placed in the test/ directory.
+    - All test file names must end with _test.dart. 
+        - For example: login_test.dart, leaderboard_test.dart.
+    - Tests should use descriptive function names for clarity.
+
+- Types of Tests: FitCheck follows three types of tests, all run using Flutter’s built-in testing framework (flutter_test)
+    - Unit Tests – Verifies individual functions, stored in test/unit/.
+    - Widget Tests – Checks UI components, stored in test/widget/.
+    - Integration Tests – Validates workflows across multiple modules, stored in integration_test/.
+
+- Test Harness and Tools
+    - Test Framework: flutter_test (default Flutter testing framework).
+    - Test Execution: Run locally via flutter test
+
+- Steps to Add a New Test
+    1. Install Dependencies
+      $ flutter pub get
+    2. Create a test file in the appropriate test directory and write the test.
+    3. Run the test locally
+
+
 - How to build a release of the software. Describe any tasks that are not automated. For example, should a developer update a version number (in code and documentation) prior to invoking the build system? Are there any sanity checks a developer should perform after building a release?
 
