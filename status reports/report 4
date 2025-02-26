@@ -117,5 +117,15 @@ Goals for Next Week:
 Leanna: 
 ============= 
 Progress & Issues:
+- Worked on adding additional test cases for sign up, home page, and "taking a photo"
+- Completed Beta++ sections: How to use the software, How to add new tests
+- Trouble with integrating AWS and getting it to work in my code environment
+- Tried to debug issues by looking at youtube videos and stack overflow
+
 Goals for the Week:
+- Get AWS all set up and running correctly
+- Help with getting the backend working
+
 Goals for Next Week:
+- Help with implementing a save feature
+- Assist with implementing followers, following lists per user profile
