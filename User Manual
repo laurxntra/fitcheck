@@ -143,7 +143,13 @@ HOW TO USE THE SOFTWARE: FITCHECK
 YASMINE - How to report a bug. This should include not just the mechanics (a pointer to your issue tracker), but also what information is needed. You can set up a bug-report template in your issue tracker, or you can reference a resource about how to write a good bug report. Here is an example for bug reporting guidelines.
     - Under the status report folder I made a bug_report where we can report a bug. 
     - The main sections I included was: 
-        - 
+        * Describe the bug
+        * Expected behavior
+        * Priority
+        * Screenshots/Video
+        * Mobile/Tablet
+        * Additional context
+
 Chaafen - Known bugs. Known bugs or limitations should be documented in the bug tracker. A user testing the implemented use case(s) should not encounter trivial bugs or a large number of bugs that are unlisted in your bug tracker.
 
 LIMITATIONS AND KNOWN BUGS
