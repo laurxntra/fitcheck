@@ -4,6 +4,40 @@ IRFAN - A high-level description. What does the system do and why would a user w
 
 Aleksey - How to install the software (if applicable). If your system has prerequisites (e.g., tools, libraries, emulators, third-party applications, etc.), your instructions should list all of them and indicate how to install and configure them. Make sure to indicate what specific version requirements these prerequisites must satisfy. If running the system requires the installation of, e.g., a virtual machine, a database, or an emulator, make sure to provide clear step-by-step instructions.
 
+Installing Prerequisites
+    - Install Visual Studio Code
+    - Install Flutter SDK and Dart SDK
+    - Install Xcode (for iOS development) and Android Studio (for Android development)
+    - Install CocoaPods (for iOS dependency management)
+        - sudo gem install cocoapods
+    - Ensure flutter doctor passes all checks by running:
+        flutter doctor
+
+Installing the Software for iOS
+    - Open the project in Xcode by selecting File > Open and navigating to the project directory
+    - Select the Runner.xcworkspace file
+    - Ensure an iOS device or simulator is selected
+    - Open the project in the terminal either in visual studio by selecting the project specific terminal (in our case the flutter_app directory)
+    - Install the dependencies 
+        flutter pub get
+    - Navigate to the iOS directory and install CocoaPods dependencies
+        cd ios && pod install
+    - Then in the same project directory (flutter_run) run:
+        flutter run
+
+Installing the Software for Android
+    - Open the project in Android Studio by selecting File > Open and navigating to the project directory
+    - Ensure an Android emulator is set up in AVD Manager or a physical Android device is connected via USB
+    - Open the project terminal in Visual Studio Code by selecting the project-specific terminal (in this case, the flutter_app directory).
+    - Install the dependencies by running:
+        flutter pub get
+    - If using a physical device, enable USB Debugging:
+        - Go to Settings > About phone and tap Build number seven times to enable Developer Options
+        - Go to Settings > Developer options and enable USB debugging
+    - Ensure the Android emulator or connected device is selected in Android Studio or VS Code
+    - Run the application from the project directory by executing:
+        flutter run
+
 Lauren - How to run the software. How to start up the system (e.g., a getting started guide)?
 Are there mobile device or browser requirements?
 
