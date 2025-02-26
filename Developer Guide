@@ -1,4 +1,18 @@
-Chaafen - How to obtain the source code. If your system uses multiple repositories or submodules, provide clear instructions for how to obtain all relevant sources.
+CHAAFEN - How to obtain the source code. If your system uses multiple repositories or submodules, provide clear instructions for how to obtain all relevant sources.
+
+Obtaining the main source code:
+==============================================================================================
+- First you will need to be added as a collaborator of the repository
+- Ensure that VSCode or an appropriate IDE is installed
+- Open terminal and navigate to a suitable directory, then enter
+    - git clone https://github.com/chaafenr/fitcheck.git
+    - cd flutter_app
+After these 3 steps, the source code for the project will be accessible.
+
+To view the pages and widgets used in the current beta release
+  - cd lib
+  - cd pages OR cd screens OR cd widgets
+
 
 COMPLETE DIRECTORY STUCTURE:
 ===============================================================================================
