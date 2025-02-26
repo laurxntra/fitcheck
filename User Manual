@@ -1,6 +1,14 @@
 
+HIGH LEVEL DESCRIPTION:
+===============================================================================================================================================
+FitCheck is a mobile app that turns everyday outfit planning into a fun, social experience. Each day, users see a “piece of clothing” challenge
+and post a photo of themselves wearing that item before the deadline. Friends (and even new style enthusiasts on a Pinterest-like public feed) 
+can view these posts, react, and give awards ranging from simple “hearts” to “best dressed” votes. Points tally up on a real-time leaderboard, 
+sparking friendly competition while also offering style inspiration. Users can keep track of their past outfits on their personal profiles, 
+follow friends’ style journeys, and discover new trends through the public “Outfit Board.” Whether someone wants quick feedback on a new look, 
+motivation to dress up daily, or a creative space to share their personal style, FitCheck provides an engaging and community-driven platform 
+for everyday fashion fun.
 
-IRFAN - A high-level description. What does the system do and why would a user want to use it.
 
 Aleksey - How to install the software (if applicable). If your system has prerequisites (e.g., tools, libraries, emulators, third-party applications, etc.), your instructions should list all of them and indicate how to install and configure them. Make sure to indicate what specific version requirements these prerequisites must satisfy. If running the system requires the installation of, e.g., a virtual machine, a database, or an emulator, make sure to provide clear step-by-step instructions.
 
