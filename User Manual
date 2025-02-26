@@ -117,3 +117,17 @@ YASMINE - How to report a bug. This should include not just the mechanics (a poi
 
 Chaafen - Known bugs. Known bugs or limitations should be documented in the bug tracker. A user testing the implemented use case(s) should not encounter trivial bugs or a large number of bugs that are unlisted in your bug tracker.
 
+LIMITATIONS AND KNOWN BUGS
+===========================================================================================================================
+- LOGIN
+    - Account feature is not set-up, no OTP will be received. Enter any code to view home page
+    - Login is required everytime app is used
+- POSTING
+    - Account feature is not set-up, no posts are saved for future viewing
+    - Daily fitpiece will remain the same until a future release
+    - Posts are not deletable, nor can the process of posting be cancelled
+    - Unable to view posts from others
+- PROFILE
+    - Account feature is not set-up, no posts are saved to profile, nor any account information
+    - Unable to view other profiles
+    - No account set-up
