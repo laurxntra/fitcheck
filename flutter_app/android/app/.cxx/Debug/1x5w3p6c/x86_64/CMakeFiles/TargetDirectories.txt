@@ -1,0 +1,2 @@
+C:/CSE403/fitcheck/flutter_app/android/app/.cxx/Debug/1x5w3p6c/x86_64/CMakeFiles/edit_cache.dir
+C:/CSE403/fitcheck/flutter_app/android/app/.cxx/Debug/1x5w3p6c/x86_64/CMakeFiles/rebuild_cache.dir
