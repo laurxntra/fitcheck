@@ -1,7 +1,5 @@
-CHAAFEN - How to obtain the source code. If your system uses multiple repositories or submodules, provide clear instructions for how to obtain all relevant sources.
-
-Obtaining the main source code:
 ==============================================================================================
+Obtaining the main source code:
 - First you will need to be added as a collaborator of the repository
 - Ensure that VSCode or an appropriate IDE is installed
 - Open terminal and navigate to a suitable directory, then enter
@@ -13,9 +11,9 @@ To view the pages and widgets used in the current beta release
   - cd lib
   - cd pages OR cd screens OR cd widgets
 
+==============================================================================================
 
 COMPLETE DIRECTORY STUCTURE:
-===============================================================================================
 ├── .idea/
 │   └── (IDE/IntelliJ config files: local settings, editor state, caches, etc.)
 ├── README.md
@@ -88,9 +86,7 @@ COMPLETE DIRECTORY STUCTURE:
 │
 └── status reports/                    (Documents tracking progress, milestone summaries, or other team updates)
 
-
-Aleksey - How to build the software. Provide clear instructions for how to use your project’s build system to build all system components.
-
+==============================================================================================
 Prerequisites
   - Install Flutter and Dark SDK
   - Install Xcode
@@ -122,11 +118,7 @@ Building the Software for Android
   7. Inside Android Studio, select the target device from the top bar.
   8. Click the build button
 
-Lauren - How to test the software. Provide clear instructions for how to run the system’s test cases. 
-In some cases, the instructions may need to include information such as how to access data sources or 
-how to interact with external systems. You may reference the user documentation (e.g., prerequisites) 
-to avoid duplication.
-
+==============================================================================================
 How to Test the Software
 ---------------------------
 Prerequisites - Before running the tests, make sure you have the following installed:
@@ -171,6 +163,6 @@ How to Add New Tests
     2. Create a test file in the appropriate test directory and write the test.
     3. Run the test locally
 
-
+==============================================================================================
 - How to build a release of the software. Describe any tasks that are not automated. For example, should a developer update a version number (in code and documentation) prior to invoking the build system? Are there any sanity checks a developer should perform after building a release?
 
