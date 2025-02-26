@@ -111,7 +111,34 @@ Running the Software on an Android Device
 7. Run the Application
     -  Click "Run" button in Android Studo to build and run the app on your Android device.
 
-LEANNA - How to use the software. How does the user use the main features? You can assume that your user is familiar with your particular platform (e.g., use of a web browser, desktop applications, or mobile applications). For missing functionality, your documentation should simply indicate that this functionality is work in progress.
+LEANNA - How to use the software. How does the user use the main features? You can assume that your user is familiar with your 
+particular platform (e.g., use of a web browser, desktop applications, or mobile applications). For missing functionality, 
+your documentation should simply indicate that this functionality is work in progress.
+
+HOW TO USE THE SOFTWARE: FITCHECK
+- FitCheck is a mobile app designed for users to  participate in daily outfit 
+  challenges and engage with others online.
+------------------------------------------------------------------------------
+- Daily Outfit Challenge
+    - Each day, a FitPiece (a clothing item or theme) is displayed.
+    - Users take and upload a photo of themselves wearing the FitPiece.
+    - Posts are shared with friends or on a public feed (Work in Progress).
+
+- Interacting with Friends
+    - Users can view their friends' posts on the Friends Page after posting their own.
+    - Posts can be liked with a heart or awarded with stars and best dressed votes (limited daily).
+    - Commenting on posts.
+
+- Leaderboard & Points
+    - Users earn points based on votes received.
+    - A Leaderboard displays top users based on total points earned.
+
+- Profile & Outfit Boards
+    - Users can track their past outfits and awards in their profile.
+    - A feature to organize outfits into boards/collections (Work in Progress).
+
+- Exploring Public Outfits
+    - Users will soon be able to browse and engage with a Public Outfit Board for fashion inspiration (Work in Progress).
 
 YASMINE - How to report a bug. This should include not just the mechanics (a pointer to your issue tracker), but also what information is needed. You can set up a bug-report template in your issue tracker, or you can reference a resource about how to write a good bug report. Here is an example for bug reporting guidelines.
 
