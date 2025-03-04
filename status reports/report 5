@@ -1,0 +1,146 @@
+NOTES FOR PM:
+--------------------------------------------------------------------
+
+NOTES TO OURSELVES:
+--------------------------------------------------------------------
+- Need to quickly implement features contigent on backend infrastructure 
+
+PROJECT STATUS:
+--------------------------------------------------------------------
+Goals for the week:
+- Have a fully functioning award system by end of week
+- Have a fully functioning leaderboards page by end of week
+- Have a unique brand identity established (ongoing)
+- Have a simple notification system in place by mid week
+
+Progress and issues:
+- Backend implementation restarted as per TA instructions
+- New AWS account made
+- New S3 Bucket made
+- AWS linked to backend
+- Minimal backend accessible features implemented
+- Critical run error keeps occuring preventing app testing
+
+Goals for next week:
+- Have a fully functioning award system by end of week
+- Have a fully functioning leaderboards page by end of week
+- Begin work on final project release/presentation
+- Complete status report sections
+
+
+
+INDIVIDUAL PROGRESS & TEAM PLANS:
+--------------------------------------------------------------------
+Agenda for next Thurs meeting:
+- FIX ANY BUGS PREVENTING BACKEND IMPLEMENTATION
+
+Irfan:
+=============
+Progress & Issues:
+- Restarted preexisting backend implementation
+- New AWS account made
+- New S3 Bucket made
+- New user access to S3 bucket made, stored credentials in .env file in repo
+- Linked AWS to new backend folder/files, importing according packages
+- Implemented image upload to bucket URL rather than local server
+- Added backend implementation to basic features
+- Created status report again and filled out personal/team sections
+- Completed multiple issue resolutions on peer review testing
+- Researched notifications through Dart
+- Issue: Paying for S3 Bucket
+Goals for the Week:
+- Implement awards and saving stats to backend by end of week
+- Implement followers, following lists per user profile by end of week
+- Learn about gameservices package for Flutter leaderboards by mid week
+- Research notifications through Dart by Tues
+Goals for Next Week:
+- Work with others to implement awards and saving stats to backend by end of week
+- Ensure group progress is being made on leaderboards section
+- Begin work on final project release/presentation slides
+- Complete status report creation again
+
+
+Yasmine:
+=============
+Progress & Issues:
+- Issue configuring xcode 
+- Figured out structure of backend
+- Created "Report a Bug" template page
+Goals for the Week:
+- Get the phone authentication working.
+Goals for Next Week:
+- Finish up backend using aws storage and sql.
+
+Aleksey:
+=============
+Progress & Issues:
+- Worked on Beta++ sections: How to build software, How to install the software
+- Having issues with the backend, havent looked into AWS but for phone authentication with firebase 
+even though everything felt set up correctly it wasnt correctly sending the code to the phone and not using the test phone
+Goals for the Week:
+- Look at possible UI changes
+- Get input from friends or just people on possible changes on what they like or don't like
+- Make the profile page feel more unique and special
+- Hopefully at least have the phone authentication work for firebase
+Goals for Next Week:
+- Work on the leaderboard
+- Work on voting system
+- Impliment a possible feature of saving fits and looking at discovery fits to save
+- Make the app feel more smooth and make sure there are no bugs
+
+Chaafen:
+=============
+Progress & Issues:
+- Worked with Yasmine on the back end
+- Modified dependencies and Runner settings in Xcode, managed to rid all iOS errors
+  - Now i am facing an AWS error, where it won't let me use objects from AWS without new import statements
+    but when i make new import statements it says they are redundant
+- Worked on Beta++ sections: known bugs, how to access source code
+- Looked through reddit and stack overflow for info on our AWS issue
+
+Goals for the Week:
+- Meet with Yasmine and work on re-installing AWS features
+- Align my Runner settings with her as well
+- Meet in office hours or seek assistance
+
+Goals for Next Week:
+- If AWS is not set-up, figure out if Firebase is something we can integrate at this point
+
+Lauren:
+=============
+Progress & Issues:
+- Update project backlogs
+- Completed Beta++ sections: How to Run Software, How to Run Tests
+- Having issues running app on Android Emulator -- However, app runs fine on Xcode on my side
+- Strayed away from CodeMagic, implemented GitHub Actions as our CI for FitCheck
+- Added additional test cases for sign up, home page, and "taking a photo"
+
+Goals for the Week:
+- Finalize profile page once backend is complete/resolved
+- Ensure that profile page has folders - similar to pinterest of user's outfits (also do research on this as well)
+- Create a settings portion -- figure out how to have backend and frontend work together if
+someone were to for example, want to change their username, bio, or name display!
+- Add different categories to cycle through the outfit of the day themes
+- Once backend complete, be able to have every team member create a profile --> probably just sample phone numbers inside database!
+- Add email authentication in addition to the phone number
+
+
+Goals for Next Week:
+- If not finished with profile page additions, finalize this next week!
+- If backend is not finished til late this week, all sections that are waiting will be pushed to next week's goals.
+
+Leanna: 
+============= 
+Progress & Issues:
+- Worked on adding additional test cases for sign up, home page, and "taking a photo"
+- Completed Beta++ sections: How to use the software, How to add new tests
+- Trouble with integrating AWS and getting it to work in my code environment
+- Tried to debug issues by looking at youtube videos and stack overflow
+
+Goals for the Week:
+- Get AWS all set up and running correctly
+- Help with getting the backend working
+
+Goals for Next Week:
+- Help with implementing a save feature
+- Assist with implementing followers, following lists per user profile
