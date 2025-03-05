@@ -110,20 +110,19 @@ Lauren:
 =============
 Progress & Issues:
 - Update project backlogs
-- Completed Beta++ sections: How to Run Software, How to Run Tests
-- Having issues running app on Android Emulator -- However, app runs fine on Xcode on my side
-- Strayed away from CodeMagic, implemented GitHub Actions as our CI for FitCheck
-- Added additional test cases for sign up, home page, and "taking a photo"
+- Created documentation for Peer Review
+- Research on different formats/codes for different UI for profile page -> wanting to stray away from
+  imitation of Pinterest/BeReal/Instagram
+- Began creating profile page -- still waiting on backend resolvement
 
 Goals for the Week:
-- Finalize profile page once backend is complete/resolved
+- Finalize profile page once backend is resolved
 - Ensure that profile page has folders - similar to pinterest of user's outfits (also do research on this as well)
 - Create a settings portion -- figure out how to have backend and frontend work together if
 someone were to for example, want to change their username, bio, or name display!
 - Add different categories to cycle through the outfit of the day themes
-- Once backend complete, be able to have every team member create a profile --> probably just sample phone numbers inside database!
+- Once backend is resolved, be able to have every team member create a profile --> probably just sample phone numbers inside database!
 - Add email authentication in addition to the phone number
-
 
 Goals for Next Week:
 - If not finished with profile page additions, finalize this next week!
