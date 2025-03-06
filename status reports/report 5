@@ -63,13 +63,13 @@ Goals for Next Week:
 Yasmine:
 =============
 Progress & Issues:
-- Issue configuring xcode 
-- Figured out structure of backend
-- Created "Report a Bug" template page
+- Started the backend over again, but I'm trying to figure out another way to implement it without running into the same issue with xcode. 
+- Worked on the peer review assignment. 
+- Figured out the design of how the backend should work.
 Goals for the Week:
-- Get the phone authentication working.
+- Try ot get some functionality working for the backend.
 Goals for Next Week:
-- Finish up backend using aws storage and sql.
+- I have the backend finish and test our app and ensure it is working for the final demos.
 
 Aleksey:
 =============
