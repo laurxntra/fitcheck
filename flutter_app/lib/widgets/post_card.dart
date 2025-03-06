@@ -14,7 +14,7 @@ class PostCard extends StatefulWidget {
   final Function(String) onCommentAdded; // Callback when a new comment is added
 
   const PostCard({
-    Key? key,
+    super.key,
     required this.username,
     required this.profileImage,
     required this.imagePath,
@@ -23,7 +23,7 @@ class PostCard extends StatefulWidget {
     this.isNetworkImage = true,
     required this.comments,
     required this.onCommentAdded,
-  }) : super(key: key);
+  });
 
   @override
   _PostCardState createState() => _PostCardState();

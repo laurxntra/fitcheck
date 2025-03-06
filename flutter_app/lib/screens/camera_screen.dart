@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CameraScreen extends StatefulWidget {
   final Function(String) onImageCaptured;
 
-  const CameraScreen({Key? key, required this.onImageCaptured}) : super(key: key);
+  const CameraScreen({super.key, required this.onImageCaptured});
 
   @override
   _CameraScreenState createState() => _CameraScreenState();

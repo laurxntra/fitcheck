@@ -4,7 +4,7 @@ class CommentSection extends StatefulWidget {
   final List<String> comments;
   final Function(String) onCommentAdded;
 
-  const CommentSection({Key? key, required this.comments, required this.onCommentAdded}) : super(key: key);
+  const CommentSection({super.key, required this.comments, required this.onCommentAdded});
 
   @override
   _CommentSectionState createState() => _CommentSectionState();

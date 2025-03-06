@@ -5,9 +5,11 @@ import '../screens/camera_screen.dart';
 import 'profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -313,7 +315,7 @@ void _toggleFeed(bool isFriendsSelected) {
             ),
           ),
 
-          Container( // only show this if daily post has not been made yet, otherwise pull today's post
+          SizedBox( // only show this if daily post has not been made yet, otherwise pull today's post
             height: 300,
             width: 250,
             child: Center(
