@@ -14,28 +14,28 @@ import 'services/aws_s3_service.dart'; // Import AWS S3 upload service
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    await dotenv.load(fileName: "../useraccess.env");
-
+    await dotenv.load(fileName: "useraccess.env"); // This is the line I changed to fix the bug
+    print("Environment variables loaded successfully.");
   } catch (e) {
     print("Error loading environment variables: $e");
   }
   runApp(const MyApp());
 }
 
-  class MyApp extends StatelessWidget {
-    const MyApp({super.key});
-    
-    @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        title: 'Your App Title',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomePage(),
-      );
-    }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'FitCheck',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
+    );
   }
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,21 +48,16 @@ class _HomePageState extends State<HomePage> {
   final S3Service _s3Service = S3Service(); // AWS S3 Service Instance
   List<Map<String, dynamic>> posts = []; // Stores S3 image URLs, captions, etc.
   bool isFriendsPage = true;
-  bool initDiscoverPages = false;
 
   void addPost(String imageUrl, String caption) {
     if (mounted) {
       setState(() {
-        final newPost = {
-          'imagePath': imageUrl, // Store S3 URL instead of local file path
+        posts.insert(0, {
+          'imagePath': imageUrl,
           'caption': caption,
           'timestamp': DateTime.now(),
           'comments': <String>[],
-        };
-
-        if (!isFriendsPage) {
-          posts.insert(0, newPost);
-        }
+        });
       });
     }
   }
@@ -83,13 +78,10 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (capturedPath != null) {
-      // Show loading indicator
       _showUploadingDialog();
-
       String fileName = "uploads/${DateTime.now().millisecondsSinceEpoch}.jpg";
       String? uploadedUrl = await _s3Service.uploadFile(capturedPath, fileName);
-
-      Navigator.pop(context); // Dismiss loading indicator
+      Navigator.pop(context);
 
       if (uploadedUrl != null) {
         final postDetails = await Navigator.push(
@@ -112,13 +104,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> _pickImageFromGallery() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null && mounted) {
-      // Show loading indicator
       _showUploadingDialog();
-
       String fileName = "uploads/${DateTime.now().millisecondsSinceEpoch}.jpg";
       String? uploadedUrl = await _s3Service.uploadFile(pickedFile.path, fileName);
-
-      Navigator.pop(context); // Dismiss loading indicator
+      Navigator.pop(context);
 
       if (uploadedUrl != null) {
         final postDetails = await Navigator.push(
@@ -137,25 +126,25 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// Show a loading dialog while uploading
+  /// Show loading dialog while uploading
   void _showUploadingDialog() {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
+      builder: (context) => const AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             CircularProgressIndicator(),
-            const SizedBox(height: 10),
-            const Text("Uploading image..."),
+            SizedBox(height: 10),
+            Text("Uploading image..."),
           ],
         ),
       ),
     );
   }
 
-  /// Show an error dialog
+  /// Show error dialog
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -181,19 +170,18 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: posts.isEmpty
                 ? _buildEmptyFeed()
-                : PageView.builder(
-                    scrollDirection: Axis.vertical,
+                : ListView.builder(
                     itemCount: posts.length,
                     itemBuilder: (context, index) {
                       final post = posts[index];
                       return PostCard(
                         username: "User",
                         profileImage: "assets/outfit1.png",
-                        imagePath: post['imagePath']!, // S3 URL
+                        imagePath: post['imagePath']!,
                         caption: post['caption']!,
                         timestamp: post['timestamp'],
                         comments: post['comments'],
-                        isNetworkImage: true, // Use Network Image since it's from S3
+                        isNetworkImage: true,
                         onCommentAdded: (comment) {
                           setState(() {
                             post['comments'].add(comment);
