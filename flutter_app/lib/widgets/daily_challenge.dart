@@ -1,3 +1,4 @@
+import 'dart:async'; // Required for Timer
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -19,20 +20,21 @@ class _DailyChallengeWidgetState extends State<DailyChallengeWidget> {
     "Christmas Spirit 🎄",
     "Show off your sneakers 👟",
     "All-black Outfit 🖤",
-    "Happy International Women's Day 🌸",
+    "Pastel Colors Day 🌸",
     "Formal Friday 👔"
   ];
 
   String dailyChallenge = "";
   late DateTime challengeEndTime;
   Duration remainingTime = Duration();
+  Timer? _timer; // Track timer for cleanup
 
   @override
   void initState() {
     super.initState();
     tz.initializeTimeZones();
     _setDailyChallenge();
-    _updateRemainingTime();
+    _startTimer();
   }
 
   /// Sets the daily challenge based on Pacific Time (PST/PDT)
@@ -51,15 +53,33 @@ class _DailyChallengeWidgetState extends State<DailyChallengeWidget> {
     });
   }
 
-  /// Updates countdown timer
-  void _updateRemainingTime() {
-    setState(() {
-      remainingTime = challengeEndTime.difference(tz.TZDateTime.now(tz.getLocation('America/Los_Angeles')));
-    });
+  /// Starts a timer that updates every second
+  void _startTimer() {
+    _timer?.cancel(); // Cancel any existing timer before starting a new one
 
-    Future.delayed(Duration(seconds: 1), () {
-      if (mounted) _updateRemainingTime();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+
+      setState(() {
+        remainingTime = challengeEndTime.difference(
+          tz.TZDateTime.now(tz.getLocation('America/Los_Angeles')),
+        );
+
+        // If time reaches zero, reset the challenge
+        if (remainingTime.isNegative) {
+          _setDailyChallenge();
+        }
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer when the widget is removed
+    super.dispose();
   }
 
   @override
@@ -70,25 +90,25 @@ class _DailyChallengeWidgetState extends State<DailyChallengeWidget> {
         Text(
           "Theme",
           style: GoogleFonts.bubblegumSans(
-            fontSize: 26,
+            fontSize: 18, // Smaller size
             fontWeight: FontWeight.bold,
-            color: Colors.pinkAccent.shade200, // Light pink
+            color: Colors.pinkAccent.shade200,
           ),
         ),
-        SizedBox(height: 5),
+        SizedBox(height: 2),
         Text(
           dailyChallenge,
           style: GoogleFonts.bubblegumSans(
-            fontSize: 28,
+            fontSize: 20, // More compact
             fontWeight: FontWeight.bold,
-            color: Colors.pink.shade300, // Slightly darker pink
+            color: Colors.pink.shade300,
           ),
         ),
-        SizedBox(height: 5),
+        SizedBox(height: 2),
         Text(
           "Time left: ${_formatDuration(remainingTime)}",
           style: GoogleFonts.bubblegumSans(
-            fontSize: 18,
+            fontSize: 14,
             color: Colors.pinkAccent.shade100,
           ),
         ),
