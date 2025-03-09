@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  google_fonts: ^4.0.4
+  timezone: ^0.9.4
   camera: ^0.11.1
   permission_handler: ^11.3.1
   path_provider: ^2.1.5 # Used for storing files
@@ -72,8 +74,6 @@ flutter:
   assets:
     - assets/
     - useraccess.env
-
-
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/preview_screen.dart';
 import 'package:flutter_app/widgets/post_card.dart';
+import 'package:flutter_app/widgets/daily_challenge.dart';
 import '../screens/camera_screen.dart';
 import 'profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intl/intl.dart'; 
 
 
 class HomePage extends StatefulWidget {
@@ -20,6 +22,11 @@ class _HomePageState extends State<HomePage> {
   List<String> discoveryPosts = [];
   bool isFriendsPage = true;
   bool initDiscoverPages = false;
+
+@override
+void initState() {
+  super.initState();
+}
 
   void addPost(String imagePath, String caption) {
     if (mounted) {
@@ -111,6 +118,8 @@ void _toggleFeed(bool isFriendsSelected) {
       body: Column(
         children: [
           _buildTopBar(),
+          SizedBox(height: 10), 
+          DailyChallengeWidget(),
           Expanded(
             child: (isFriendsPage ? posts : discoveryPosts).isEmpty
                 ? _buildEmptyFeed()
@@ -245,6 +254,7 @@ void _toggleFeed(bool isFriendsSelected) {
           children: const [
             Icon(Icons.camera_alt, size: 50, color: Color(0xffb57977)),
             SizedBox(height: 10),
+            
             Text(
               "No posts yet.\nTake a picture!",
               textAlign: TextAlign.center,
