@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart'; // Import PhoneNumber type
+import 'package:intl_phone_field/phone_number.dart';
 
 class PhoneLoginScreen extends StatefulWidget {
   const PhoneLoginScreen({super.key});
@@ -13,13 +14,14 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
   final TextEditingController phoneController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool isValid = false;
-  String fullPhoneNumber = ""; // Stores full phone number
+  String fullPhoneNumber = "";
+  String? storedVerificationId;  // ✅ Fix: Defined verificationId properly
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // ✅ Fix: Accept `PhoneNumber` instead of `String`
   void _validatePhoneNumber(PhoneNumber phone) {
     setState(() {
-      isValid = phone.number.length >= 10; // Ensure at least 10 digits
-      fullPhoneNumber = phone.completeNumber; // Store full phone number
+      isValid = phone.number.length >= 10;
+      fullPhoneNumber = phone.completeNumber;
     });
   }
 
@@ -27,22 +29,52 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
     _focusNode.unfocus();
   }
 
-  void sendOtp() {
-    if (isValid) {
-      Navigator.pushReplacementNamed(
-        context,
-        "/otp",
-        arguments: {"phoneNumber": fullPhoneNumber}, // ✅ Pass full phone number
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Enter a valid phone number!")),
-      );
-    }
+  void sendOtp() async {
+  if (!isValid || storedVerificationId != null) return;  // ✅ Prevent multiple requests
+
+  try {
+    print("📞 Sending OTP to: $fullPhoneNumber");
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: fullPhoneNumber,
+      timeout: const Duration(seconds: 60),
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        print("✅ Auto-verification complete! Signing in...");
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        Navigator.pushReplacementNamed(context, "/home");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print("❌ Verification Failed: ${e.code} - ${e.message}");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${e.message}")),
+        );
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        setState(() {
+          storedVerificationId = verificationId;  // ✅ Store verification ID
+        });
+        print("✅ Code Sent Successfully! Verification ID: $verificationId");
+
+        Navigator.pushNamed(
+          context,
+          "/otp",
+          arguments: {"verificationId": verificationId},  // ✅ Navigate to OTP entry screen
+        );
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        print("🕒 Auto retrieval timeout: $verificationId");
+      },
+    );
+  } catch (e) {
+    print("❌ Firebase Phone Auth Error: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("An error occurred. Try again.")),
+    );
   }
+}
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  // ✅ Fix: `build()` must be inside the class
     return GestureDetector(
       onTap: _dismissKeyboard,
       child: Scaffold(
@@ -53,7 +85,6 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-
                 Center(
                   child: Image.asset(
                     'assets/FitCheck.png',
@@ -62,9 +93,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                     fit: BoxFit.contain,
                   ),
                 ),
-
                 const SizedBox(height: 40),
-
                 const Text(
                   "What's your phone number?",
                   textAlign: TextAlign.center,
@@ -74,17 +103,13 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                     color: Color(0xff872626),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
-                // ✅ Fix: Use `PhoneNumber` in `onChanged`
                 IntlPhoneField(
                   controller: phoneController,
                   focusNode: _focusNode,
                   keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.done,
-                  onChanged: _validatePhoneNumber, // ✅ Fix: Pass correct type
-                  style: const TextStyle(color: Colors.white),
+                  onChanged: _validatePhoneNumber,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(0xffd0addc),
@@ -93,36 +118,11 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
-                      
                     ),
                   ),
                   initialCountryCode: 'US',
                 ),
-
-                const SizedBox(height: 10),
-
-                // Terms & Privacy Policy
-                const Text.rich(
-                  TextSpan(
-                    text: "By continuing, you agree to our ",
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                    children: [
-                      TextSpan(
-                        text: "Privacy Policy",
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(text: " and "),
-                      TextSpan(
-                        text: "Terms of Service",
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-
                 const SizedBox(height: 30),
-
-                // **Send Verification Button**
                 SizedBox(
                   width: double.infinity,
                   height: 50,

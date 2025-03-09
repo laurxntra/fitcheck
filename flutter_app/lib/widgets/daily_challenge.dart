@@ -90,7 +90,7 @@ class _DailyChallengeWidgetState extends State<DailyChallengeWidget> {
         Text(
           "Theme",
           style: GoogleFonts.bubblegumSans(
-            fontSize: 18, // Smaller size
+            fontSize: 18, 
             fontWeight: FontWeight.bold,
             color: Colors.pinkAccent.shade200,
           ),
@@ -99,7 +99,7 @@ class _DailyChallengeWidgetState extends State<DailyChallengeWidget> {
         Text(
           dailyChallenge,
           style: GoogleFonts.bubblegumSans(
-            fontSize: 20, // More compact
+            fontSize: 20, 
             fontWeight: FontWeight.bold,
             color: Colors.pink.shade300,
           ),

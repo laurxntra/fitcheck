@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-  import 'home_page.dart'; 
-
+import 'home_page.dart';
+import 'phone_login.dart'; // ✅ Import the login screen
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -18,7 +19,7 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     _buildHeader(),
                     _buildProfileInfo(),
-                    _buildButtons(),
+                    _buildButtons(context), // ✅ Pass context to the button function
                     _buildTabBar(),
                   ],
                 ),
@@ -30,47 +31,41 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-
-Widget _buildTopBar(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 70, left: 16, right: 16, bottom: 10),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: const Icon(Icons.group, color: Color(0xffd0addc), size: 28),
-          onPressed: () {
-            // Add functionality if needed
-          },
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
-          },
-          child: Image.asset(
-            'assets/FitCheck.png',
-            height: 75,
-            fit: BoxFit.contain,
+  Widget _buildTopBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 70, left: 16, right: 16, bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.group, color: Color(0xffd0addc), size: 28),
+            onPressed: () {},
           ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Add functionality if needed
-          },
-          child: const CircleAvatar(
-            radius: 24,
-            backgroundColor: Color(0xffd0addc),
-            child: Icon(Icons.person, color: Colors.white, size: 26),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            },
+            child: Image.asset(
+              'assets/FitCheck.png',
+              height: 75,
+              fit: BoxFit.contain,
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+          GestureDetector(
+            onTap: () {},
+            child: const CircleAvatar(
+              radius: 24,
+              backgroundColor: Color(0xffd0addc),
+              child: Icon(Icons.person, color: Colors.white, size: 26),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildHeader() {
     return Padding(
@@ -129,28 +124,48 @@ Widget _buildTopBar(BuildContext context) {
     );
   }
 
-  Widget _buildButtons() {
+  Widget _buildButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Row(
+      child: Column(
         children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff872626),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff872626),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
               ),
-              child: const Text(
-                'Edit Profile',
-                style: TextStyle(color: Colors.white),
+            ),
+            child: const Text(
+              'Edit Profile',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 20), // Add space before the sign-out button
+          ElevatedButton(
+            onPressed: () => _signOut(context), // ✅ Call sign-out function
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red, // Sign-out button in red
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
               ),
+            ),
+            child: const Text(
+              'Sign Out',
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _signOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const PhoneLoginScreen()),
     );
   }
 
