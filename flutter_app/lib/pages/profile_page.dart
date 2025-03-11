@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'phone_login.dart'; // ✅ Import the login screen
+import 'phone_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'edit_profile_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -12,36 +13,31 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final String userId = FirebaseAuth.instance.currentUser?.uid ?? 'testUser'; // ✅ Define userId
+  final String userId = FirebaseAuth.instance.currentUser?.uid ?? 'testUser';
   Map<String, dynamic>? userData;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData();
+    _listenForUserDataChanges();  // Listen for real-time data changes
   }
 
-  Future<void> _fetchUserData() async {
-    try {
-      print("Fetching user data for userId: $userId"); // Debug print
-
-      DocumentSnapshot<Map<String, dynamic>> doc =
-          await FirebaseFirestore.instance.collection('users').doc(userId).get();
-
+  // Use Firestore snapshots to listen for real-time updates
+  void _listenForUserDataChanges() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .snapshots()
+        .listen((DocumentSnapshot<Map<String, dynamic>> doc) {
       if (doc.exists) {
-        print("Firestore data: ${doc.data()}"); // Debug print
         setState(() {
           userData = doc.data();
         });
       } else {
         print("User document does not exist.");
       }
-    } catch (e) {
-      print("Firestore error: $e");
-    }
+    });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +165,12 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Column(
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const EditProfileScreen()),
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff872626),
               shape: RoundedRectangleBorder(
