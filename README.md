@@ -5,6 +5,37 @@ Our app is designed to make fashion fun by gamifying everyday style and inspirin
 
 ## [Living Document](https://docs.google.com/document/d/1CZu642kOHpgtLdXkNPS8U6OsxPTkgixnqs-X6VRMPes/edit?tab=t.0)
 
+COMPLETED FEATURES:
+==================================================================================================================
+- User Authentication System
+  * Allow users to create accounts, log in, and log out.
+  * Include user profile picture and username.
+  
+- Daily Outfit Challenges (P0)
+  * Display the daily "piece of clothing/theme" challenge.
+  * Allow users to submit photos of themselves wearing the outfit within the specified time limit.
+ 
+- DataBase
+  * Holds all user’s posts and account information (followers, following, number of posts, username) 
+  * Stores all of today’s posts for viewing on friend’s pages
+  * Stores all of user’s posts to date to view on profile
+ 
+- Awarding System
+  * Users are able to award hearts to a post
+  * Awards aare kept track of in leaderboard
+  * Awards are restricted on a per day basis
+ 
+- Leaderboard and Point Icons (P1) 
+  * Display a leaderboard based on the top three best dressed and/or awarded people and have certain icons and levels based on how many hearts a user has.
+
+- Searching for Friends’ posts (P2)
+  * Users can type in the username of a friend and view a page showing that friend’s post for today. If the friend has not posted today, it shows their account    
+  * information (username, number of followers, number of friends, number of posts to date).
+
+- Functional OTP/account creation
+- Functional backend (data storage/retreival)
+
+  -------------------
 CURRENT SATISFIED USE CASE:
 Goal:
 - Posting the daily photo of your fit!
