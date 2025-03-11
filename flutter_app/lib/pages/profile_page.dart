@@ -2,9 +2,46 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'phone_login.dart'; // ✅ Import the login screen
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final String userId = FirebaseAuth.instance.currentUser?.uid ?? 'testUser'; // ✅ Define userId
+  Map<String, dynamic>? userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    try {
+      print("Fetching user data for userId: $userId"); // Debug print
+
+      DocumentSnapshot<Map<String, dynamic>> doc =
+          await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+      if (doc.exists) {
+        print("Firestore data: ${doc.data()}"); // Debug print
+        setState(() {
+          userData = doc.data();
+        });
+      } else {
+        print("User document does not exist.");
+      }
+    } catch (e) {
+      print("Firestore error: $e");
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +50,20 @@ class ProfilePage extends StatelessWidget {
         children: [
           _buildTopBar(context),
           Expanded(
-            child: ListView(
-              children: [
-                Column(
+            child: userData == null 
+              ? const Center(child: CircularProgressIndicator())
+              : ListView(
                   children: [
-                    _buildHeader(),
-                    _buildProfileInfo(),
-                    _buildButtons(context), // ✅ Pass context to the button function
-                    _buildTabBar(),
+                    Column(
+                      children: [
+                        _buildHeader(),
+                        _buildProfileInfo(),
+                        _buildButtons(context),
+                        _buildTabBar(),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
           ),
         ],
       ),
@@ -80,16 +119,16 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(height: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Text(
-                'name display',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                userData?['name'] ?? 'Loading...',
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               Text(
-                '@username',
+                '@${userData?['username'] ?? 'Loading...'}',
                 style: TextStyle(fontSize: 15),
               ),
-              Text('Insert bio here'),
+              Text(userData?['bio'] ?? 'Insert bio here'),
             ],
           ),
         ],
@@ -103,10 +142,10 @@ class ProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildProfileInfoItem('Posts', '120'),
-          _buildProfileInfoItem('Followers', '1.2M'),
-          _buildProfileInfoItem('Following', '1'),
-          _buildProfileInfoItem('Awards', '1000'),
+          _buildProfileInfoItem('Posts', userData?['posts']?.toString() ?? '0'),
+          _buildProfileInfoItem('Followers', userData?['followers']?.toString() ?? '0'),
+          _buildProfileInfoItem('Following', userData?['following']?.toString() ?? '0'),
+          _buildProfileInfoItem('Awards', userData?['awards']?.toString() ?? '0'),
         ],
       ),
     );
@@ -142,11 +181,11 @@ class ProfilePage extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
           ),
-          const SizedBox(height: 20), // Add space before the sign-out button
+          const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () => _signOut(context), // ✅ Call sign-out function
+            onPressed: () => _signOut(context),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red, // Sign-out button in red
+              backgroundColor: Colors.red,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
@@ -198,20 +237,22 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildProfileGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 4,
-        mainAxisSpacing: 4,
-      ),
-      itemCount: 30,
-      itemBuilder: (context, index) {
-        return Container(
-          color: Colors.grey[300],
-        );
-      },
-    );
+    return userData == null
+        ? const Center(child: CircularProgressIndicator()) // Show loading
+        : GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+            ),
+            itemCount: 30,
+            itemBuilder: (context, index) {
+              return Container(
+                color: Colors.grey[300],
+              );
+            },
+          );
   }
 }

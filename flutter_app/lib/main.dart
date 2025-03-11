@@ -6,6 +6,8 @@ import 'package:flutter_app/pages/phone_login.dart';
 import 'package:flutter_app/pages/otp_verification.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app/pages/profile_page.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +52,7 @@ class MyApp extends StatelessWidget {
             : const HomePage(),         // Already signed in → Home
         '/otp': (context) => const OTPScreen(),
         '/home': (context) => const HomePage(),
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }

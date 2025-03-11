@@ -6,6 +6,8 @@ import 'package:flutter_app/widgets/post_card.dart';
 import 'package:flutter_app/widgets/daily_challenge.dart';
 import 'package:flutter_app/pages/profile_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/pages/profile_page.dart';
+
 
 // Import your S3 Service
 import 'package:flutter_app/services/aws_s3_service.dart';
