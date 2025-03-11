@@ -7,6 +7,8 @@ import 'package:flutter_app/widgets/daily_challenge.dart';
 import 'package:flutter_app/pages/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/pages/profile_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 // Import your S3 Service
@@ -216,6 +218,146 @@ class _HomePageState extends State<HomePage> {
     discoveryPosts.insert(0, 'assets/outfit2.png');
     discoveryPosts.insert(0, 'assets/outfit3.png');
   }
+  // *******************************************************
+  //     Pop up that allows people to add friends 
+  // *******************************************************
+  void _showAddFriendDialog(BuildContext context) {
+  TextEditingController searchController = TextEditingController();
+  String? searchedUserId;
+  bool userFound = false;  // To track if the user is found
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, setState) {
+          return AlertDialog(
+            title: Text("Add Friend"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                    labelText: "Search by Phone Number",
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () async {
+                        String phoneNumber = searchController.text.trim();
+                        if (phoneNumber.isNotEmpty) {
+                          var query = await FirebaseFirestore.instance
+                              .collection('users')
+                              .where('phone', isEqualTo: phoneNumber)
+                              .limit(1)
+                              .get();
+
+                          if (query.docs.isNotEmpty) {
+                            searchedUserId = query.docs.first.id;
+                            setState(() {
+                              userFound = true; // User found, so show the buttons
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("User found! You can now add them."))
+                            );
+                          } else {
+                            searchedUserId = null;
+                            setState(() {
+                              userFound = false;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("User not found!"))
+                            );
+                          }
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                if (userFound) ...[
+                  ElevatedButton(
+                    onPressed: () async {
+                      String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+                      if (searchedUserId != null) {
+                        // Just display a confirmation before actually adding
+                        bool? confirmFollow = await showDialog<bool>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Confirm Follow"),
+                              content: Text("Do you want to follow this user?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false);  // No, don't follow
+                                  },
+                                  child: Text("No"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(true);  // Yes, follow
+                                  },
+                                  child: Text("Yes"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+
+                        if (confirmFollow == true) {
+                          // Add to following collection for current user
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(currentUserId)
+                              .update({
+                            'following': FieldValue.arrayUnion([searchedUserId])
+                          });
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(currentUserId)
+                              .update({
+                            'followers': FieldValue.arrayUnion([searchedUserId])
+                          });
+                           await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(searchedUserId)
+                              .update({
+                            'following': FieldValue.arrayUnion([currentUserId])
+                          });
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(searchedUserId)
+                              .update({
+                            'followers': FieldValue.arrayUnion([currentUserId])
+                          });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("You are now friends with this user!"))
+                          );
+                        }
+                      }
+                    },
+                    child: Text("Add Friend!"),
+                  ),
+                  
+                ]
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("Close"),
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}
+
+
+
 
   // *******************************************************
   //     BUILD
@@ -334,7 +476,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           IconButton(
             icon: const Icon(Icons.group, color: Color(0xffd0addc), size: 28),
-            onPressed: () {},
+            onPressed: () =>_showAddFriendDialog(context),
           ),
           Image.asset(
             'assets/FitCheck.png',
@@ -422,25 +564,25 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: const [
-              Text(
-                "Today's fitPiece:",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff872626),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 5),
-              Text(
-                'pea coat',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffd64117),
-                ),
-                textAlign: TextAlign.center,
-              ),
+              // Text(
+              //   "Today's fitPiece:",
+              //   style: TextStyle(
+              //     fontSize: 25,
+              //     fontWeight: FontWeight.bold,
+              //     color: Color(0xff872626),
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
+              // SizedBox(height: 5),
+              // Text(
+              //   'pea coat',
+              //   style: TextStyle(
+              //     fontSize: 25,
+              //     fontWeight: FontWeight.bold,
+              //     color: Color(0xffd64117),
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
             ],
           ),
         ),

@@ -88,8 +88,8 @@ Future<void> _saveUserToFirestore(User user) async {
         "username": "user${user.uid.substring(0, 5)}", // Example username
         "bio": "Hey there! I'm using FitCheck.",
         "posts": 0,
-        "followers": 0,
-        "following": 0,
+        "followers": [],
+        "following": [],
         "awards": 0,
         "createdAt": FieldValue.serverTimestamp(),
       });

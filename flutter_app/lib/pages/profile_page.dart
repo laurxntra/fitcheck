@@ -132,6 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+
+
   Widget _buildProfileInfo() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -139,8 +141,8 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildProfileInfoItem('Posts', userData?['posts']?.toString() ?? '0'),
-          _buildProfileInfoItem('Followers', userData?['followers']?.toString() ?? '0'),
-          _buildProfileInfoItem('Following', userData?['following']?.toString() ?? '0'),
+          _buildProfileInfoItem('Followers', userData?['followers']?.length.toString() ?? '0'),
+          _buildProfileInfoItem('Following', userData?['following']?.length.toString() ?? '0'),
           _buildProfileInfoItem('Awards', userData?['awards']?.toString() ?? '0'),
         ],
       ),
