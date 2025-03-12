@@ -1,0 +1,92 @@
+NOTES FOR PM:
+--------------------------------------------------------------------
+
+NOTES TO OURSELVES:
+--------------------------------------------------------------------
+
+PROJECT STATUS:
+--------------------------------------------------------------------
+Goals for the week:
+- Have a fully functioning award system by end of week
+- Have a fully functioning leaderboards page by end of week
+- Begin work on final project release/presentation
+- Complete status report sections
+
+Progress and issues:
+- Firebase authorization completed
+- AWS bucket implemented
+- Recaptcha enterprise API enabled
+- GoogleJSON file added to repo
+- Google playtime API enabled
+- OTP working
+- Following page working
+- Android backend not authorized for firebase access
+- Profile Features fully implemented
+- Likes leaderboard implemented
+- 2 page reflection complete
+- Status report done
+- Presentation slides made
+
+Goals for next week:
+- No next week
+- App Store release?
+
+
+
+INDIVIDUAL PROGRESS & TEAM PLANS:
+--------------------------------------------------------------------
+Agenda for next Thurs meeting:
+
+Irfan:
+=============
+Progress & Issues:
+- Completed backend implementation
+- Set up billing account for project
+- Linked billing account to repo
+- Enabled Google Playtime API
+- Enabled Recaptcha Enterprise API
+- Created Project fingerprints in Firebase
+- Created and integrated google JSON file
+- Changed package name & related dependencies
+- Created status report
+- Wrote up 2 page report
+- Created presentation slides
+Goals for the Week:
+- Work with others to implement awards and saving stats to backend by end of week
+- Ensure group progress is being made on leaderboards section
+- Begin work on final project release/presentation slides
+- Complete status report creation again
+Goals for Next Week:
+- Last Week!
+- Release on App Store?
+
+
+Yasmine:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Aleksey:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Chaafen:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Lauren:
+=============
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
+
+Leanna: 
+============= 
+Progress & Issues:
+Goals for the Week:
+Goals for Next Week:
