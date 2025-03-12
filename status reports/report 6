@@ -82,8 +82,19 @@ Goals for Next Week:
 Lauren:
 =============
 Progress & Issues:
+- Edit profile page complete, able to edit username, user display, and bio and updates in firebase
+- Able to upload a profile picture but...
+- ISSUE: profile picture not being able to connect, firebase seems to be connecting showing "profilePicture" each 
+        test, but shows blank "", meaning no image is being stored.
+- Created buckets for storing user information -> username, name display, followers/following, etc.
+- Changed rules of firebase to ensure storage is done
+- Made it so homepage now connects to firebase, name display is now being shown when posting a photo
+- Removal of favorites "folder" in profile page due to time constraint
+
 Goals for the Week:
+- Complete profile page to be fully functioning
 Goals for Next Week:
+- N/A
 
 Leanna: 
 ============= 
