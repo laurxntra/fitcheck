@@ -9,6 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/pages/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 // Import your S3 Service
@@ -134,84 +137,108 @@ class _HomePageState extends State<HomePage> {
   //    Gallery Flow → (Mock) Upload → Show Preview
   // *******************************************************
   Future<void> _pickImageFromGallery() async {
-    if (!mounted) return;
+  if (!mounted) return;
 
-    // 1) Pick from gallery
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) return;
+  // 1) Pick from gallery
+  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  if (pickedFile == null) return;
 
-    // 2) Show "Uploading..." dialog
-    _showUploadingDialog();
+  // 2) Show "Uploading..." dialog
+  _showUploadingDialog();
 
-    String? uploadedUrl;
-    if (isMockUpload) {
-      uploadedUrl = pickedFile.path; 
-      await Future.delayed(const Duration(seconds: 1));
-    } else {
-      // Real S3 logic
-      String fileName = "uploads/${DateTime.now().millisecondsSinceEpoch}.jpg";
-      uploadedUrl = await _s3Service.uploadFile(pickedFile.path, fileName);
-    }
+  String? uploadedUrl;
+  if (isMockUpload) {
+    uploadedUrl = pickedFile.path;
+    await Future.delayed(const Duration(seconds: 1));
+  } else {
+    // Real Firebase Storage logic
+    String fileName = "uploads/${DateTime.now().millisecondsSinceEpoch}.jpg";
+    File imageFile = File(pickedFile.path);
+    final storageRef = FirebaseStorage.instance.ref().child(fileName);
 
-    // 3) Close loading dialog
-    Navigator.pop(context);
+    try {
+      await storageRef.putFile(imageFile);
+      uploadedUrl = await storageRef.getDownloadURL();
+      print('Image uploaded successfully: $uploadedUrl');
 
-    // 4) If success, show PreviewScreen with URL (or local path)
-    if (uploadedUrl != null) {
-  final postDetails = await Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => PreviewScreen(imagePath: uploadedUrl!),
-    ),
-  );
+      // Get the current user's ID
+      final userId = FirebaseAuth.instance.currentUser?.uid;
 
-      // 5) If user saved, add it
-      if (postDetails != null) {
-        addPost(postDetails['imagePath']!, postDetails['caption']!);
+      if (userId != null) {
+        // Save image URL to Firestore
+        await FirebaseFirestore.instance.collection('users').doc(userId).update({
+          'profilePicture': uploadedUrl, // Replace with the appropriate field name
+        });
+      } else {
+        _showErrorDialog("User ID is null. Cannot save the image URL.");
       }
-    } else {
-      _showErrorDialog("Upload failed. Please try again.");
+    } catch (e) {
+      print('Upload error: $e');
+      _showErrorDialog("Upload failed: $e");
+      Navigator.pop(context);
+      return;
     }
+  }
+
+  // 3) Close loading dialog
+  Navigator.pop(context);
+
+  // 4) If success, show PreviewScreen with URL (or local path)
+  if (uploadedUrl != null) {
+    final postDetails = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PreviewScreen(imagePath: uploadedUrl!),
+      ),
+    );
+
+    // 5) If user saved, add it
+    if (postDetails != null) {
+      addPost(postDetails['imagePath']!, postDetails['caption']!);
+    }
+  } else {
+    _showErrorDialog("Upload failed. Please try again.");
+  }
   }
 
   // *******************************************************
   //     Show a loading dialog while uploading
   // *******************************************************
   void _showUploadingDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 10),
-            Text("Uploading image..."),
-          ],
-        ),
-      ),
-    );
-  }
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Uploading..."),
+        content: CircularProgressIndicator(),
+      );
+    },
+  );
+}
 
   // *******************************************************
   //     Show an error dialog
   // *******************************************************
   void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Error"),
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Error"),
         content: Text(message),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("OK"),
           ),
         ],
-      ),
-    );
-  }
+      );
+    },
+  );
+}
 
   // *******************************************************
   //     Toggle feed between friends & my posts
