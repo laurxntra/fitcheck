@@ -7,6 +7,7 @@ import 'package:flutter_app/pages/otp_verification.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_app/pages/profile_page.dart';
+import 'package:flutter_app/pages/edit_profile_screen.dart';
 
 
 Future<void> main() async {
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/otp': (context) => const OTPScreen(),
         '/home': (context) => const HomePage(),
         '/profile': (context) => const ProfilePage(),
+        '/edit_profile': (context) => const EditProfileScreen(),
       },
     );
   }

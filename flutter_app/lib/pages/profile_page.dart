@@ -4,6 +4,12 @@ import 'home_page.dart';
 import 'phone_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'edit_profile_screen.dart';
+import 'folder_detail_page.dart'; 
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,11 +21,71 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final String userId = FirebaseAuth.instance.currentUser?.uid ?? 'testUser';
   Map<String, dynamic>? userData;
+  List<Map<String, dynamic>> folders = [];
+  File? _image;
 
   @override
   void initState() {
     super.initState();
     _listenForUserDataChanges();  // Listen for real-time data changes
+    _fetchFolders();
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+
+      // Upload the image to Firebase Storage and update the profile picture in Firestore
+      await _uploadImage(_image!);
+    }
+  }
+
+  Future<void> _uploadImage(File imageFile) async {
+    try {
+      String fileName = 'profile_pictures/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+
+      UploadTask uploadTask = storageRef.putFile(imageFile);
+      TaskSnapshot snapshot = await uploadTask;
+
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      await _updateProfilePicture(downloadUrl);
+    } catch (e) {
+      print("Error uploading image: $e");
+    }
+  }
+
+    Future<void> _updateProfilePicture(String imageUrl) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'profilePicture': imageUrl, // Save the image URL in the user's document
+      });
+
+      // After updating Firestore, reload the user data
+      _listenForUserDataChanges();
+    } catch (e) {
+      print("Error updating profile picture: $e");
+    }
+  }
+
+  void _fetchFolders() async {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('folders')
+        .get()
+        .then((querySnapshot) {
+      setState(() {
+        folders = querySnapshot.docs.map((doc) => doc.data()).toList();
+      });
+    }).catchError((error) {
+      print("Error fetching folders: $error");
+    });
   }
 
   // Use Firestore snapshots to listen for real-time updates
@@ -46,20 +112,21 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           _buildTopBar(context),
           Expanded(
-            child: userData == null 
-              ? const Center(child: CircularProgressIndicator())
-              : ListView(
-                  children: [
-                    Column(
-                      children: [
-                        _buildHeader(),
-                        _buildProfileInfo(),
-                        _buildButtons(context),
-                        _buildTabBar(),
-                      ],
-                    ),
-                  ],
-                ),
+            child: userData == null
+                ? const Center(child: CircularProgressIndicator())
+                : ListView(
+                    children: [
+                      Column(
+                        children: [
+                          _buildHeader(),
+                          _buildProfileInfo(),
+                          _buildFoldersGrid(),
+                          _buildButtons(context),
+                          _buildTabBar(),
+                        ],
+                      ),
+                    ],
+                  ),
           ),
         ],
       ),
@@ -102,15 +169,67 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Widget _buildFoldersGrid() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Two columns for the grid
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+      ),
+      itemCount: folders.length,
+      itemBuilder: (context, index) {
+        final folder = folders[index];
+        return GestureDetector(
+          onTap: () {
+            // Navigate to folder detail page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FolderDetailPage(folderId: folder['folderId']),
+              ),
+            );
+          },
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.network(folder['thumbnail'], fit: BoxFit.cover, height: 150),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    folder['name'],
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildHeader() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundColor: Color(0xffd0addc),
-            child: Icon(Icons.person, size: 40, color: Colors.white),
+          _image == null
+          ? CircleAvatar(
+              radius: 40,
+              backgroundColor: Color(0xffd0addc),
+              backgroundImage: NetworkImage(userData?['profilePicture'] ?? ''),
+              child: Icon(Icons.person, size: 40, color: Colors.white),
+          )
+          : CircleAvatar(
+              radius:40,
+              backgroundImage: FileImage(_image!),
           ),
           const SizedBox(height: 8),
           Column(
@@ -131,8 +250,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
-
 
   Widget _buildProfileInfo() {
     return Padding(
@@ -216,46 +333,24 @@ class _ProfilePageState extends State<ProfilePage> {
       length: 2,
       child: Column(
         children: [
-          const TabBar(
+          TabBar(
             indicatorColor: Color(0xff872626),
-            labelColor: Color(0xff872626),
+            labelColor: const Color(0xff872626),
             unselectedLabelColor: Colors.grey,
             tabs: [
-              Tab(icon: Icon(Icons.grid_on)),
-              Tab(icon: Icon(Icons.favorite)),
+              Tab(icon: Icon(Icons.grid_on)),  // Assuming grid icon for folders
             ],
           ),
           SizedBox(
             height: 400,
             child: TabBarView(
               children: [
-                _buildProfileGrid(),
-                const Center(child: Text('Favorites')),
+                _buildFoldersGrid(),  // Corrected to show folders grid
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  Widget _buildProfileGrid() {
-    return userData == null
-        ? const Center(child: CircularProgressIndicator()) // Show loading
-        : GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
-            ),
-            itemCount: 30,
-            itemBuilder: (context, index) {
-              return Container(
-                color: Colors.grey[300],
-              );
-            },
-          );
   }
 }
