@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // Toggle to skip real S3 uploads:
   final bool isMockUpload = true;
+  String username = '';
 
   // 1) AWS S3 Service instance
   final S3Service _s3Service = S3Service();
@@ -37,6 +38,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _getUsername();
+  }
+
+  Future<void> _getUsername() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId != null) {
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      if (userDoc.exists) {
+        setState(() {
+          username = userDoc.data()?['name'] ?? 'User';
+        });
+      }
+    }
   }
 
   // *******************************************************
@@ -381,7 +395,7 @@ class _HomePageState extends State<HomePage> {
                         // show feed of friend posts
                         final post = posts[index];
                         return PostCard(
-                          username: "User",
+                          username: username,
                           profileImage: "assets/outfit1.png",
                           imagePath: post['imagePath']!,
                           caption: post['caption']!,
