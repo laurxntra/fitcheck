@@ -70,8 +70,15 @@ Goals for Next Week:
 Aleksey:
 =============
 Progress & Issues:
-Goals for the Week:
-Goals for Next Week:
+- Firebase authentication confirmed to be working
+- Firestore structure set up for tracking likes per user
+- Fixed PostCard missing authorId issue
+- Implemented leaderboard page UI
+- Implemented PageView to allow swiping from home feed to leaderboard
+- Likes now properly update in Firestore when a post is liked/unliked
+- ISSUE: Leaderboard sorting was initially incorrect; fixed by properly querying Firestore
+- ISSUE: PostCard widget missing required fields, causing crashes; resolved by updating HomePage implementation
+- ISSUE: Likes not updating in real-time; need to implement Firestore snapshot listeners
 
 Chaafen:
 =============
